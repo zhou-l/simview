@@ -6,6 +6,7 @@ CONFIG += console gl_debug
 CONFIG -= app_bundle
 
 INCLUDEPATH += $$PWD/OpenGL
+INCLUDEPATH += ./GLEW
 TEMPLATE = app
 
 unix:QMAKE_CXXFLAGS += -std=c++11
@@ -15,6 +16,7 @@ unix:QMAKE_CXXFLAGS += -std=c++11
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
+
 
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -74,7 +76,24 @@ SOURCES += \
     window.cpp \
     volume/octree.cpp \
     volume/volblockanalyzer.cpp \
-    volume/volumeblock.cpp
+    volume/volumeblock.cpp \
+    graph/massspringsystem.cpp \
+    graph/pointmass.cpp \
+    graph/spring.cpp \
+    OpenGL/openglerror.cpp \
+    volume/octree.cpp \
+    volume/volblockanalyzer.cpp \
+    volume/volumeblock.cpp \
+    volume/VolumeData.cpp \
+    camera3d.cpp \
+    debugdraw.cpp \
+    frameresult.cpp \
+    geometry.cpp \
+    input.cpp \
+    main.cpp \
+    profiler.cpp \
+    transform3d.cpp \
+    window.cpp \
 
 HEADERS += \
     window.h \
@@ -188,7 +207,35 @@ HEADERS += \
     StdDefines.h \
     volume/octree.h \
     volume/volblockanalyzer.h \
-    volume/volumeblock.h
+    volume/volumeblock.h \
+    graph/massspringsystem.h \
+    graph/pointmass.h \
+    graph/spring.h \
+    OpenGL/openglbuffer.h \
+    OpenGL/openglcommon.h \
+    OpenGL/openglerror.h \
+    OpenGL/openglfunctions.h \
+    OpenGL/openglmarkerscoped.h \
+    OpenGL/openglshaderprogram.h \
+    OpenGL/openglvertexarrayobject.h \
+    volume/octree.h \
+    volume/volblockanalyzer.h \
+    volume/volumeblock.h \
+    volume/VolumeData.h \
+    camera3d.h \
+    debugdraw.h \
+    debugvertex.h \
+    frameresult.h \
+    geometry.h \
+    global.h \
+    input.h \
+    macros.h \
+    MyVectors.h \
+    profiler.h \
+    StdDefines.h \
+    transform3d.h \
+    vertex.h \
+    window.h
 
 RESOURCES += \
     resources.qrc

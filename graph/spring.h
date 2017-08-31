@@ -7,7 +7,7 @@ class PointMass;
 
 // A spring modelled after Hooke's law and includes damping
 // A spring is connected to PointMass objects on each of it's ends
-class Spring
+class Spring : public QOpenGLFunctions_3_3_Compatibility
 {
 public:
     // spring constant in newtons/meter
