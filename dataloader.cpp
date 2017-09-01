@@ -9,6 +9,15 @@ DataLoader::DataLoader()
 
 }
 
+DataLoader::~DataLoader()
+{
+	for (size_t i = 0; i < _pointData.size(); i++)
+	{
+		_pointData[i].clear();
+	}
+	_pointData.clear();
+}
+
 
 bool DataLoader::loadCSVtoPointCloud(const QString &fileName)
 {
@@ -69,6 +78,21 @@ bool DataLoader::loadCSVtoPointCloud(const QString &fileName)
                 firstTime = false;
             }
         }
+		else{
+
+			if (fVal_row.size() != attrMinMax.size())
+				continue; // don't add to data if row sizes are not consistent
+
+			for (size_t i = 0; i < row.size(); i++)
+			{
+				fVal_row[i] = atof(row[i].c_str()); // For now, don't handle nominal data, just use as float!
+				attrMinMax[i].x = MIN(fVal_row[i], attrMinMax[i].x); // Get minmax
+				attrMinMax[i].y = MAX(fVal_row[i], attrMinMax[i].y);
+			}
+
+			// Add to pointData
+			_pointData.push_back(fVal_row);
+		}
     }
     return true;
 }

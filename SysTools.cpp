@@ -848,8 +848,9 @@ namespace SysTools {
   }
 
   bool GetTempDirectory(std::string& path) {
-  #ifdef DETECTED_OS_WINDOWS
-    DWORD result = ::GetTempPathA(0, "");
+#ifdef DETECTED_OS_WINDOWS
+	char str[MAX_PATH];
+    DWORD result = ::GetTempPathA(0, str);
     if(result == 0) return false;
     std::vector<char> tempPath(result + 1);
     result = ::GetTempPathA(static_cast<DWORD>(tempPath.size()), &tempPath[0]);
@@ -867,7 +868,8 @@ namespace SysTools {
 
   bool GetTempDirectory(std::wstring& path) {
   #ifdef DETECTED_OS_WINDOWS
-      DWORD result = ::GetTempPathW(0, L"");
+	  wchar_t wstr[MAX_PATH];
+      DWORD result = ::GetTempPathW(0, wstr);
       if(result == 0) return false;
       std::vector<WCHAR> tempPath(result + 1);
       result = ::GetTempPathW(static_cast<DWORD>(tempPath.size()), &tempPath[0]);

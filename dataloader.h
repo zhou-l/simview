@@ -8,6 +8,7 @@ class DataLoader
 {
 public:
     DataLoader();
+	virtual ~DataLoader();
 
     bool loadCSVtoPointCloud(const QString& fileName);
 
