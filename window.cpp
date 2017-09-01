@@ -1,3 +1,4 @@
+#include "global.h"
 #include "window.h"
 #include <QDebug>
 #include <QString>
@@ -10,10 +11,12 @@
 #include "profiler.h"
 #include "debugdraw.h"
 #include "frameresult.h"
-
+#include "dataloader.h"
 // Custom includes
 #include <OpenGLError>
 #include <OpenGLShaderProgram>
+
+using namespace std;
 
 // Front Verticies
 #define VERTEX_FTR Vertex( QVector3D( 0.5f,  0.5f,  0.5f), QVector3D( 1.0f, 0.0f, 0.0f ) )
@@ -78,10 +81,14 @@ Window::Window() :
   m_transform.translate(0.0f, 0.0f, -5.0f);
   OpenGLError::pushErrorHandler(this);
   m_frameTimer.start();
+
+  m_dataLoader = new DataLoader();
 }
 
 Window::~Window()
 {
+    SAFE_DELETE(m_dataLoader);
+
   makeCurrent();
   OpenGLError::popErrorHandler();
 }
@@ -132,6 +139,8 @@ void Window::initializeGL()
     m_vertex.bind();
     m_vertex.setUsagePattern(QOpenGLBuffer::StaticDraw);
     m_vertex.allocate(sg_vertexes, sizeof(sg_vertexes));
+    vector<Vertex> verts = g_params.vertices();
+    m_vertex.allocate(&verts[0], sizeof(verts));
 
     // Create Vertex Array Object
     m_object.create();
@@ -197,6 +206,32 @@ void Window::teardownGL()
   m_object.destroy();
   m_vertex.destroy();
 }
+
+bool Window::loadData()
+{
+   QString filePrefix = tr("C:\\MyData\\Utah_heart_ischema\\201701_Conductivity\\mesh\\");
+    QString fileName = tr("heartPts.csv");
+    vector<Vertex> verts;
+    m_dataLoader->loadCSVtoPointCloud(filePrefix+fileName);
+    if(m_dataLoader->attrib_names().size() < 3)
+    {
+         verts.assign(sg_vertexes, sg_vertexes + sizeof(sg_vertexes)/sizeof(Vertex));
+         g_params.setVertices(verts);
+         return false;
+    }
+    g_params.setPointData(m_dataLoader->pointData());
+
+    // Convert to point data
+    vector<vector<float> > pointData = g_params.pointData();
+    verts.resize(g_params.pointData().size());
+    for(vector<vector<float> >::const_iterator IT = pointData.begin(); IT!= pointData.end(); ++IT)
+    {
+        verts[IT - pointData.begin()] = Vertex(QVector3D((*IT)[0], (*IT)[1], (*IT)[2]));
+    }
+    g_params.setVertices(verts);
+    return true;
+}
+
 
 void Window::update()
 {

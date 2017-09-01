@@ -13,6 +13,16 @@
 // geometry.h*
 #include <float.h>
 #include "global.h"
+using std::min;
+using std::max;
+using std::swap;
+using std::sort;
+#include <iostream>
+#include <vector>
+#include "MyVectors.h"
+using std::ostream;
+class Point;
+class Normal;
 // Geometry Declarations
 class Vector {
 public:

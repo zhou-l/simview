@@ -21,7 +21,7 @@ class OpenGLError;
 class OpenGLShaderProgram;
 class QOpenGLDebugLogger;
 class QMoveEvent;
-
+class DataLoader;
 class Window : public QOpenGLWindow,
                protected OpenGLFunctions
 {
@@ -50,6 +50,7 @@ protected:
   void mouseReleaseEvent(QMouseEvent *event);
   void moveEvent(QMoveEvent *ev);
 
+  bool loadData();
 private:
   // OpenGL State Information
   OpenGLBuffer m_vertex;
@@ -67,6 +68,9 @@ private:
   QMatrix4x4 m_projection;
   Camera3D m_camera;
   Transform3D m_transform;
+
+  // Data loader
+  DataLoader* m_dataLoader;
 
   // Private Helpers
   void printVersionInformation();

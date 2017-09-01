@@ -4,13 +4,14 @@
 #include <vector>
 #include "spring.h"
 #include "geometry.h"
+#include <QOpenGLFunctions_3_3_Compatibility>
 
 class Spring;
 
 // A point mass is a mass at a position
 // This object controls motion of the mass under the force of gravity
 // and connected springs
-class PointMass
+class PointMass : public QOpenGLFunctions_3_3_Compatibility
 {
 public:
 	PointMass();
