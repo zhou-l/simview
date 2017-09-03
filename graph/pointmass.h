@@ -2,10 +2,9 @@
 #ifndef POINTMASS_H
 #define POINTMASS_H
 #include <vector>
-#include "spring.h"
 #include "geometry.h"
+#include "global.h"
 #include <QOpenGLFunctions_3_3_Compatibility>
-
 class Spring;
 
 // A point mass is a mass at a position

@@ -8,19 +8,14 @@
  * (See file License.txt for complete license)
  */
 
-#ifndef PBRT_GEOMETRY_H
-#define PBRT_GEOMETRY_H
+#ifndef GEOMETRY_H
+#define GEOMETRY_H
 // geometry.h*
 #include <float.h>
 #include "global.h"
-using std::min;
-using std::max;
-using std::swap;
-using std::sort;
-#include <iostream>
-#include <vector>
 #include "MyVectors.h"
-using std::ostream;
+
+#define RAY_EPSILON 1e-3f
 class Point;
 class Normal;
 // Geometry Declarations
@@ -350,7 +345,7 @@ inline Normal operator*(float f, const Normal &n) {
 inline Normal Normalize(const Normal &n) {
 	return n / n.Length();
 }
-inline Vector::Vector(const Normal &n)
+inline  Vector::Vector(const Normal &n)
   : x(n.x), y(n.y), z(n.z) { }
 inline float Dot(const Normal &n1, const Vector &v2) {
 	return n1.x * v2.x + n1.y * v2.y + n1.z * v2.z;

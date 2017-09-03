@@ -1,8 +1,6 @@
 #ifndef VOLUMEBLOCK_H
 #define VOLUMEBLOCK_H
-
 #include "MyVectors.h"
-
 class VolumeData;
 class VolumeBlock
 {

@@ -1,4 +1,3 @@
-#include "global.h"
 #include "window.h"
 #include <QDebug>
 #include <QString>
@@ -11,14 +10,10 @@
 #include "profiler.h"
 #include "debugdraw.h"
 #include "frameresult.h"
-#include "dataloader.h"
-#include <iostream>
+
 // Custom includes
 #include <OpenGLError>
-
-//#include <OpenGLShaderProgram>
-
-using namespace std;
+#include <OpenGLShaderProgram>
 
 // Front Verticies
 #define VERTEX_FTR Vertex( QVector3D( 0.5f,  0.5f,  0.5f), QVector3D( 1.0f, 0.0f, 0.0f ) )
@@ -83,27 +78,16 @@ Window::Window() :
   m_transform.translate(0.0f, 0.0f, -5.0f);
   OpenGLError::pushErrorHandler(this);
   m_frameTimer.start();
-
-  m_dataLoader = new DataLoader();
 }
 
 Window::~Window()
 {
-    SAFE_DELETE(m_dataLoader);
-
   makeCurrent();
   OpenGLError::popErrorHandler();
 }
 
 void Window::initializeGL()
 {
-	// load data
-	vector<Vertex> verts;
-	if (loadData())
-	{
-		 cout << "Data loaded successfully! Num verts = " << verts.size() << endl;
-	}
-	verts = g_params.vertices();
   // Initialize OpenGL Backend
   initializeOpenGLFunctions();
   connect(context(), SIGNAL(aboutToBeDestroyed()), this, SLOT(teardownGL()), Qt::DirectConnection);
@@ -132,8 +116,7 @@ void Window::initializeGL()
   // Application-specific initialization
   {
     // Create Shader (Do not release until VAO is created)
-    //m_program = new OpenGLShaderProgram(this);
-	m_program = new QOpenGLShaderProgram(this);
+    m_program = new OpenGLShaderProgram(this);
     m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/simple.vert");
     m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/simple.frag");
     m_program->link();
@@ -148,9 +131,7 @@ void Window::initializeGL()
     m_vertex.create();
     m_vertex.bind();
     m_vertex.setUsagePattern(QOpenGLBuffer::StaticDraw);
-	//m_vertex.allocate(&sg_vertexes, sizeof(sg_vertexes));
-	
-	m_vertex.allocate(&verts[0], verts.size() * sizeof(Vertex));
+    m_vertex.allocate(sg_vertexes, sizeof(sg_vertexes));
 
     // Create Vertex Array Object
     m_object.create();
@@ -195,9 +176,7 @@ void Window::paintGL()
       PROFILER_PUSH_GPU_MARKER("Draw Object");
       m_object.bind();
       m_program->setUniformValue(u_modelToWorld, m_transform.toMatrix());
-      //glDrawArrays(GL_TRIANGLES, 0, sizeof(sg_vertexes) / sizeof(sg_vertexes[0]));
-	  //glDrawArrays(GL_TRIANGLES, 0, g_params.vertices().size());
-	  glDrawArrays(GL_POINTS, 0, g_params.vertices().size());
+      glDrawArrays(GL_TRIANGLES, 0, sizeof(sg_vertexes) / sizeof(sg_vertexes[0]));
       m_object.release();
       PROFILER_POP_GPU_MARKER();
     }
@@ -218,35 +197,6 @@ void Window::teardownGL()
   m_object.destroy();
   m_vertex.destroy();
 }
-
-bool Window::loadData()
-{
-   QString filePrefix = tr("C:\\MyData\\Utah_heart_ischema\\201701_Conductivity\\mesh\\");
-    QString fileName = tr("heartPts.csv");
-    vector<Vertex> verts;
-    bool fileLoaded = m_dataLoader->loadCSVtoPointCloud(filePrefix+fileName);
-    if(!fileLoaded || m_dataLoader->attrib_names().size() < 3)
-    {
-         verts.assign(sg_vertexes, sg_vertexes + sizeof(sg_vertexes)/sizeof(Vertex));
-         g_params.setVertices(verts);
-		 cout << "Failed to load csv data!" << endl;
-         return false;
-    }
-    g_params.setPointData(m_dataLoader->pointData());
-
-    // Convert to point data
-    vector<vector<float> > pointData = g_params.pointData();
-    verts.resize(g_params.pointData().size());
-    for(vector<vector<float> >::const_iterator IT = pointData.begin(); IT!= pointData.end(); ++IT)
-    {
-		QVector3D posV = QVector3D((*IT)[0], (*IT)[1], (*IT)[2])/50.0f;
-		QVector3D colV = QVector3D(abs(posV.x()), abs(posV.y()), abs(posV.z())) ;
-        verts[IT - pointData.begin()] = Vertex(posV, colV);
-    }
-    g_params.setVertices(verts);
-    return true;
-}
-
 
 void Window::update()
 {

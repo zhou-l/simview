@@ -1,6 +1,3 @@
-/* CSC 473 Fall 2014
- * Ryan Guy
- */
 
 #include "massspringsystem.h"
 #include <QDebug>

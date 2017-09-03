@@ -1,9 +1,17 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
-#include "params.h"
-#include "StdDefines.h"
-#include <string>
-#include "assert.h"
+
+#include <cmath>
+#include <algorithm>
+using std::min;
+using std::max;
+using std::swap;
+using std::sort;
+#include <iostream>
+#include <vector>
+
+using std::ostream;
+#include <assert.h>
 #ifdef M_PI
 #undef M_PI
 #endif
@@ -13,8 +21,12 @@
 #ifndef INFINITY
 #define INFINITY FLT_MAX
 #endif
-#define PBRT_VERSION 1.0
-#define RAY_EPSILON 1e-3f
+
+
+typedef unsigned char u_char;
+typedef unsigned short u_short;
+typedef unsigned int u_int;
+typedef unsigned long u_long;
 
 inline float Lerp(float t, float v1, float v2) {
     return (1.f - t) * v1 + t * v2;
@@ -52,7 +64,7 @@ inline int Log2Int(float v) {
 inline bool IsPowerOf2(int v) {
     return (v & (v - 1)) == 0;
 }
-inline uint RoundUpPow2(uint v) {
+inline u_int RoundUpPow2(u_int v) {
     v--;
     v |= v >> 1;
     v |= v >> 2;
@@ -61,7 +73,4 @@ inline uint RoundUpPow2(uint v) {
     v |= v >> 16;
     return v+1;
 }
-
-extern Params g_params;
-
 #endif // GLOBAL_H
