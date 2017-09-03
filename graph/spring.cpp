@@ -3,7 +3,7 @@
  */
 
 #include "spring.h"
-#include <QOpenGLFunctions>
+
 Spring::Spring(float springConstant, float restLength,
                PointMass *mass1, PointMass *mass2)
 {

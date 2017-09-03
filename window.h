@@ -18,10 +18,11 @@
 class Profiler;
 class FrameResult;
 class OpenGLError;
-class OpenGLShaderProgram;
+//class OpenGLShaderProgram;
+class QOpenGLShaderProgram;
 class QOpenGLDebugLogger;
 class QMoveEvent;
-
+class DataLoader;
 class Window : public QOpenGLWindow,
                protected OpenGLFunctions
 {
@@ -50,11 +51,13 @@ protected:
   void mouseReleaseEvent(QMouseEvent *event);
   void moveEvent(QMoveEvent *ev);
 
+  bool loadData();
 private:
   // OpenGL State Information
   OpenGLBuffer m_vertex;
   OpenGLVertexArrayObject m_object;
-  OpenGLShaderProgram *m_program;
+  //OpenGLShaderProgram *m_program;
+  QOpenGLShaderProgram *m_program;
   QOpenGLDebugLogger *m_debugLogger;
   Profiler *m_profiler;
   uint64_t m_frameCount;
@@ -67,6 +70,9 @@ private:
   QMatrix4x4 m_projection;
   Camera3D m_camera;
   Transform3D m_transform;
+
+  // Data loader
+  DataLoader* m_dataLoader;
 
   // Private Helpers
   void printVersionInformation();

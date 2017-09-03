@@ -3,6 +3,7 @@
 #define SPRING_H
 #include "pointmass.h"
 #include "geometry.h"
+#include <QOpenGLFunctions_3_3_Compatibility>
 class PointMass;
 
 // A spring modelled after Hooke's law and includes damping

@@ -1,6 +1,4 @@
-#include <QOpenGLFunctions>
 
-#include "spring.h"
 #include "pointmass.h"
 
 PointMass::PointMass()
@@ -69,7 +67,7 @@ Vector PointMass::calculateForces() {
     Vector fs = Vector(0.0, 0.0, 0.0);
 	Vector fext = f_external;
 
-    for (u_int i=0; i<springs.size(); i++) {
+    for (uint i=0; i<springs.size(); i++) {
         fs += springs[i]->getForce(this);
     }
 
@@ -92,20 +90,20 @@ void PointMass::update(float dt, bool applyExtForce) {
 
 void PointMass::draw() {
 
-  glColor4f(0.0, 0.5, 1.0, 1.0);
-  glPointSize(2.0);
-  glBegin(GL_POINTS);
-  glVertex3f(position.x, position.y, position.z);
-  glEnd();
+    glColor4f(0.0, 0.5, 1.0, 1.0);
+    glPointSize(2.0);
+    glBegin(GL_POINTS);
+    glVertex3f(position.x, position.y, position.z);
+    glEnd();
 }
 
 void PointMass::draw(float scaleX, float scaleY, float scaleZ)
 {
-  glColor4f(1.0, 0.0, 0.0, 1.0);
-  glPointSize(10.0);
-  glBegin(GL_POINTS);
-  glVertex3f(scaleX * position.x, scaleY * position.y, scaleZ * position.z);
-  glEnd();
+	glColor4f(1.0, 0.0, 0.0, 1.0);
+	glPointSize(10.0);
+	glBegin(GL_POINTS);
+	glVertex3f(scaleX * position.x, scaleY * position.y, scaleZ * position.z);
+	glEnd();
 }
 
 
