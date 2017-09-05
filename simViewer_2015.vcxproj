@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{41F43A0D-DE5C-3F01-8AB5-E1CAB9A5B8F1}</ProjectGuid>
+    <RootNamespace>simViewer</RootNamespace>
+    <Keyword>Qt4VSv1.0</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <PlatformToolset>v140</PlatformToolset>
+    <OutputDirectory>release\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>release\</IntermediateDirectory>
+    <PrimaryOutput>simViewer</PrimaryOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <PlatformToolset>v120</PlatformToolset>
+    <OutputDirectory>debug\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>debug\</IntermediateDirectory>
+    <PrimaryOutput>simViewer</PrimaryOutput>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">simViewer</TargetName>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">simViewer</TargetName>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</IgnoreImportLibrary>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;OpenGL;..\..\..\Qt\5.9.1\msvc2015_64\include;..\..\..\Qt\5.9.1\msvc2015_64\include\QtWidgets;..\..\..\Qt\5.9.1\msvc2015_64\include\QtGui;..\..\..\Qt\5.9.1\msvc2015_64\include\QtANGLE;..\..\..\Qt\5.9.1\msvc2015_64\include\QtCore;release;..\..\..\Qt\5.9.1\msvc2015_64\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -w34100 -w34189 -w44996 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>release\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>release\</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>_CONSOLE;UNICODE;WIN32;WIN64;QT_DEPRECATED_WARNINGS;SCYTHE_COMPILE_DIRECT=1;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ProgramDataBaseFileName>
+      </ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>C:\Qt\5.9.1\msvc2015_64\lib\Qt5Widgets.lib;C:\Qt\5.9.1\msvc2015_64\lib\Qt5Gui.lib;C:\Qt\5.9.1\msvc2015_64\lib\Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Qt\5.9.1\msvc2015_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkIncremental>false</LinkIncremental>
+      <OutputFile>$(OutDir)\simViewer.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_CONSOLE;UNICODE;WIN32;WIN64;QT_DEPRECATED_WARNINGS;SCYTHE_COMPILE_DIRECT=1;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;OpenGL;..\..\..\Qt\5.9.1\msvc2015_64\include;..\..\..\Qt\5.9.1\msvc2015_64\include\QtWidgets;..\..\..\Qt\5.9.1\msvc2015_64\include\QtGui;..\..\..\Qt\5.9.1\msvc2015_64\include\QtANGLE;..\..\..\Qt\5.9.1\msvc2015_64\include\QtCore;debug;..\..\..\Qt\5.9.1\msvc2015_64\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -w34100 -w34189 -w44996 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>debug\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>debug\</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_CONSOLE;UNICODE;WIN32;WIN64;QT_DEPRECATED_WARNINGS;SCYTHE_COMPILE_DIRECT=1;GL_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>C:\Qt\5.9.1\msvc2015_64\lib\Qt5Widgetsd.lib;C:\Qt\5.9.1\msvc2015_64\lib\Qt5Guid.lib;C:\Qt\5.9.1\msvc2015_64\lib\Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Qt\5.9.1\msvc2015_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <OutputFile>$(OutDir)\simViewer.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_CONSOLE;UNICODE;WIN32;WIN64;QT_DEPRECATED_WARNINGS;SCYTHE_COMPILE_DIRECT=1;GL_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="SysTools.cpp" />
+    <ClCompile Include="volume\VolumeData.cpp" />
+    <ClCompile Include="camera3d.cpp" />
+    <ClCompile Include="dataloader.cpp" />
+    <ClCompile Include="debugdraw.cpp" />
+    <ClCompile Include="frameresult.cpp" />
+    <ClCompile Include="geometry.cpp" />
+    <ClCompile Include="global.cpp" />
+    <ClCompile Include="input.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="graph\massspringsystem.cpp" />
+    <ClCompile Include="volume\octree.cpp" />
+    <ClCompile Include="OpenGL\openglerror.cpp" />
+    <ClCompile Include="params.cpp" />
+    <ClCompile Include="graph\pointmass.cpp" />
+    <ClCompile Include="profiler.cpp" />
+    <ClCompile Include="graph\spring.cpp" />
+    <ClCompile Include="transform3d.cpp" />
+    <ClCompile Include="volume\volblockanalyzer.cpp" />
+    <ClCompile Include="volume\volumeblock.cpp" />
+    <ClCompile Include="window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dataHandling\CSVRow.h" />
+    <ClInclude Include="MyVectors.h" />
+    <ClInclude Include="OpenGL\OpenGLBuffer" />
+    <ClInclude Include="OpenGL\OpenGLCommon" />
+    <ClInclude Include="OpenGL\OpenGLError" />
+    <ClInclude Include="OpenGL\OpenGLFunctions" />
+    <ClInclude Include="OpenGL\OpenGLMarkerScoped" />
+    <ClInclude Include="OpenGL\OpenGLShaderProgram" />
+    <ClInclude Include="OpenGL\OpenGLVertexArrayObject" />
+    <ClInclude Include="StdDefines.h" />
+    <ClInclude Include="SysTools.h" />
+    <ClInclude Include="volume\VolumeData.h" />
+    <ClInclude Include="scythe\scythestat\algorithm.h" />
+    <ClInclude Include="camera3d.h" />
+    <ClInclude Include="scythe\scythestat\datablock.h" />
+    <ClInclude Include="dataloader.h" />
+    <ClInclude Include="debugdraw.h" />
+    <ClInclude Include="debugvertex.h" />
+    <ClInclude Include="scythe\scythestat\defs.h" />
+    <ClInclude Include="scythe\scythestat\distributions.h" />
+    <ClInclude Include="scythe\scythestat\error.h" />
+    <ClInclude Include="frameresult.h" />
+    <ClInclude Include="geometry.h" />
+    <ClInclude Include="global.h" />
+    <ClInclude Include="scythe\scythestat\ide.h" />
+    <ClInclude Include="input.h" />
+    <ClInclude Include="scythe\scythestat\la.h" />
+    <ClInclude Include="scythe\scythestat\lapack.h" />
+    <ClInclude Include="scythe\scythestat\rng\lecuyer.h" />
+    <ClInclude Include="macros.h" />
+    <ClInclude Include="graph\massspringsystem.h" />
+    <ClInclude Include="scythe\scythestat\matrix.h" />
+    <ClInclude Include="scythe\scythestat\matrix_bidirectional_iterator.h" />
+    <ClInclude Include="scythe\scythestat\matrix_forward_iterator.h" />
+    <ClInclude Include="scythe\scythestat\matrix_random_access_iterator.h" />
+    <ClInclude Include="scythe\scythestat\rng\mersenne.h" />
+    <ClInclude Include="volume\octree.h" />
+    <ClInclude Include="OpenGL\openglbuffer.h" />
+    <ClInclude Include="OpenGL\openglcommon.h" />
+    <ClInclude Include="OpenGL\openglerror.h" />
+    <ClInclude Include="OpenGL\openglfunctions.h" />
+    <ClInclude Include="OpenGL\openglmarkerscoped.h" />
+    <ClInclude Include="OpenGL\openglshaderprogram.h" />
+    <ClInclude Include="OpenGL\openglvertexarrayobject.h" />
+    <ClInclude Include="scythe\scythestat\optimize.h" />
+    <ClInclude Include="params.h" />
+    <ClInclude Include="graph\pointmass.h" />
+    <CustomBuild Include="profiler.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">profiler.h;release\moc_predefs.h;C:\Qt\5.9.1\msvc2015_64\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include release/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" profiler.h -o release\moc_profiler.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include release/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" profiler.h -o release\moc_profiler.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include release/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" profiler.h -o release\moc_profiler.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include release/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" profiler.h -o release\moc_profiler.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include release/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" profiler.h -o release\moc_profiler.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include release/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" profiler.h -o release\moc_profiler.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include release/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" profiler.h -o release\moc_profiler.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MOC profiler.h, MOC profiler.h, MOC profiler.h, MOC profiler.h, MOC profiler.h, MOC profiler.h, MOC profiler.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\moc_profiler.cpp;release\moc_profiler.cpp;release\moc_profiler.cpp;release\moc_profiler.cpp;release\moc_profiler.cpp;release\moc_profiler.cpp;release\moc_profiler.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">profiler.h;debug\moc_predefs.h;C:\Qt\5.9.1\msvc2015_64\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DGL_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include debug/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" profiler.h -o debug\moc_profiler.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DGL_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include debug/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" profiler.h -o debug\moc_profiler.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DGL_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include debug/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" profiler.h -o debug\moc_profiler.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DGL_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include debug/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" profiler.h -o debug\moc_profiler.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DGL_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include debug/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" profiler.h -o debug\moc_profiler.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DGL_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include debug/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" profiler.h -o debug\moc_profiler.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DGL_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include debug/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" profiler.h -o debug\moc_profiler.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MOC profiler.h, MOC profiler.h, MOC profiler.h, MOC profiler.h, MOC profiler.h, MOC profiler.h, MOC profiler.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">debug\moc_profiler.cpp;debug\moc_profiler.cpp;debug\moc_profiler.cpp;debug\moc_profiler.cpp;debug\moc_profiler.cpp;debug\moc_profiler.cpp;debug\moc_profiler.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="scythe\scythestat\rng.h" />
+    <ClInclude Include="scythe\scythestat\rng\rtmvnorm.h" />
+    <ClInclude Include="scythe\scythestat\smath.h" />
+    <ClInclude Include="graph\spring.h" />
+    <ClInclude Include="scythe\scythestat\stat.h" />
+    <ClInclude Include="transform3d.h" />
+    <ClInclude Include="vertex.h" />
+    <ClInclude Include="volume\volblockanalyzer.h" />
+    <ClInclude Include="volume\volumeblock.h" />
+    <CustomBuild Include="window.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">window.h;release\moc_predefs.h;C:\Qt\5.9.1\msvc2015_64\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include release/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" window.h -o release\moc_window.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include release/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" window.h -o release\moc_window.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include release/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" window.h -o release\moc_window.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include release/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" window.h -o release\moc_window.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include release/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" window.h -o release\moc_window.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include release/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" window.h -o release\moc_window.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include release/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" window.h -o release\moc_window.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MOC window.h, MOC window.h, MOC window.h, MOC window.h, MOC window.h, MOC window.h, MOC window.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\moc_window.cpp;release\moc_window.cpp;release\moc_window.cpp;release\moc_window.cpp;release\moc_window.cpp;release\moc_window.cpp;release\moc_window.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">window.h;debug\moc_predefs.h;C:\Qt\5.9.1\msvc2015_64\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DGL_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include debug/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" window.h -o debug\moc_window.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DGL_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include debug/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" window.h -o debug\moc_window.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DGL_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include debug/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" window.h -o debug\moc_window.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DGL_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include debug/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" window.h -o debug\moc_window.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DGL_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include debug/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" window.h -o debug\moc_window.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DGL_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include debug/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" window.h -o debug\moc_window.cpp
+if errorlevel 1 goto VCEnd
+C:\Qt\5.9.1\msvc2015_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DSCYTHE_COMPILE_DIRECT=1 -DGL_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include debug/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/MyProjects/simview/simview -IC:/MyProjects/simview/simview/OpenGL -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" window.h -o debug\moc_window.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MOC window.h, MOC window.h, MOC window.h, MOC window.h, MOC window.h, MOC window.h, MOC window.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">debug\moc_window.cpp;debug\moc_window.cpp;debug\moc_window.cpp;debug\moc_window.cpp;debug\moc_window.cpp;debug\moc_window.cpp;debug\moc_window.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="scythe\scythestat\rng\wrapped_generator.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="debug\moc_predefs.h.cbt">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\Qt\5.9.1\msvc2015_64\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cl -BxC:\Qt\5.9.1\msvc2015_64\bin\qmake.exe -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zi -MDd -W3 -w34100 -w34189 -w44996 -E ..\..\..\Qt\5.9.1\msvc2015_64\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;debug\moc_predefs.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate moc_predefs.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">debug\moc_predefs.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="release\moc_predefs.h.cbt">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\Qt\5.9.1\msvc2015_64\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cl -BxC:\Qt\5.9.1\msvc2015_64\bin\qmake.exe -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -O2 -MD -Zc:strictStrings -W3 -w34100 -w34189 -w44996 -E ..\..\..\Qt\5.9.1\msvc2015_64\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;release\moc_predefs.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate moc_predefs.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\moc_predefs.h;%(Outputs)</Outputs>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <ClCompile Include="debug\moc_profiler.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_profiler.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_window.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_window.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\qrc_resources.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\qrc_resources.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\debug.frag" />
+    <None Include="shaders\debug.vert" />
+    <CustomBuild Include="resources.qrc">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">resources.qrc;C:\Qt\5.9.1\msvc2015_64\bin\rcc.exe;shaders\debug.frag;shaders\simple.frag;shaders\debug.vert;shaders\simple.vert;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Qt\5.9.1\msvc2015_64\bin\rcc.exe -name resources resources.qrc -o release\qrc_resources.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">RCC resources.qrc</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\qrc_resources.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">resources.qrc;C:\Qt\5.9.1\msvc2015_64\bin\rcc.exe;shaders\debug.frag;shaders\simple.frag;shaders\debug.vert;shaders\simple.vert;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\5.9.1\msvc2015_64\bin\rcc.exe -name resources resources.qrc -o debug\qrc_resources.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">RCC resources.qrc</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">debug\qrc_resources.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <None Include="shaders\simple.frag" />
+    <None Include="shaders\simple.vert" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>
