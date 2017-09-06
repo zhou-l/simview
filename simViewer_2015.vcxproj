@@ -250,6 +250,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="dataAnalyzer.cpp" />
     <ClCompile Include="SysTools.cpp" />
     <ClCompile Include="volume\VolumeData.cpp" />
     <ClCompile Include="camera3d.cpp" />
@@ -273,6 +274,10 @@
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BinNode.h" />
+    <ClInclude Include="book.h" />
+    <ClInclude Include="BSTNode.h" />
+    <ClInclude Include="dataAnalyzer.h" />
     <ClInclude Include="dataHandling\CSVRow.h" />
     <ClInclude Include="MyVectors.h" />
     <ClInclude Include="OpenGL\OpenGLBuffer" />
@@ -282,6 +287,7 @@
     <ClInclude Include="OpenGL\OpenGLMarkerScoped" />
     <ClInclude Include="OpenGL\OpenGLShaderProgram" />
     <ClInclude Include="OpenGL\OpenGLVertexArrayObject" />
+    <ClInclude Include="spatialDataPt.h" />
     <ClInclude Include="StdDefines.h" />
     <ClInclude Include="SysTools.h" />
     <ClInclude Include="volume\VolumeData.h" />
