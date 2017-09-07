@@ -12,6 +12,7 @@
 #include "debugdraw.h"
 #include "frameresult.h"
 #include "dataloader.h"
+#include "dataAnalyzer.h"
 #include <iostream>
 // Custom includes
 #include <OpenGLError>
@@ -80,16 +81,18 @@ Window::Window() :
   m_profiler->setOffset(0.0f, 0.0f, 0.95f, 0.0f);
   Profiler::setProfiler(m_profiler);
 #endif // GL_DEBUG
-  m_transform.translate(0.0f, 0.0f, -5.0f);
+  m_transform.translate(0.0f, 0.0f, -2.0f);
   OpenGLError::pushErrorHandler(this);
   m_frameTimer.start();
 
   m_dataLoader = new DataLoader();
+  m_dataAnalyzer = new DataAnalyzer();
 }
 
 Window::~Window()
 {
     SAFE_DELETE(m_dataLoader);
+	SAFE_DELETE(m_dataAnalyzer);
 
   makeCurrent();
   OpenGLError::popErrorHandler();
@@ -197,7 +200,7 @@ void Window::paintGL()
       m_program->setUniformValue(u_modelToWorld, m_transform.toMatrix());
       //glDrawArrays(GL_TRIANGLES, 0, sizeof(sg_vertexes) / sizeof(sg_vertexes[0]));
 	  //glDrawArrays(GL_TRIANGLES, 0, g_params.vertices().size());
-	  glDrawArrays(GL_POINTS, 0, g_params.vertices().size());
+	  glDrawArrays(GL_POINTS, 0, GLsizei(g_params.vertices().size()));
       m_object.release();
       PROFILER_POP_GPU_MARKER();
     }
@@ -221,7 +224,7 @@ void Window::teardownGL()
 
 bool Window::loadData()
 {
-   QString filePrefix = tr("C:\\MyData\\Utah_heart_ischema\\201701_Conductivity\\mesh\\");
+    QString filePrefix = tr("C:\\MyData\\Utah_heart_ischema\\201701_Conductivity\\mesh\\");
     QString fileName = tr("heartPts.csv");
     vector<Vertex> verts;
     bool fileLoaded = m_dataLoader->loadCSVtoPointCloud(filePrefix+fileName);
@@ -237,13 +240,26 @@ bool Window::loadData()
     // Convert to point data
     vector<vector<float> > pointData = g_params.pointData();
     verts.resize(g_params.pointData().size());
+	// prepare for KD-tree data
+	vector<FLOATVECTOR3> fvPtData(pointData.size());
     for(vector<vector<float> >::const_iterator IT = pointData.begin(); IT!= pointData.end(); ++IT)
     {
-		QVector3D posV = QVector3D((*IT)[0], (*IT)[1], (*IT)[2])/50.0f;
+		size_t id = IT - pointData.begin();
+		FLOATVECTOR3 fv = FLOATVECTOR3((*IT)[0], (*IT)[1], (*IT)[2]);
+		fvPtData[id] = fv;
+		QVector3D posV = QVector3D(fv.x, fv.y, fv.z)/50.0f;
 		QVector3D colV = QVector3D(abs(posV.x()), abs(posV.y()), abs(posV.z())) ;
-        verts[IT - pointData.begin()] = Vertex(posV, colV);
+        verts[id] = Vertex(posV, colV);
     }
     g_params.setVertices(verts);
+
+	// build KD-tree
+	KD<spatialDataPt*> meshKDtree(3);
+	m_dataAnalyzer->buildKDtree(fvPtData, meshKDtree);
+	cout << "KD tree node #= " << meshKDtree.size()<<endl;
+	g_params.meshKDTree(meshKDtree);
+	cout << "global KD tree node #= " << g_params.meshKDTree().size() << endl;
+
     return true;
 }
 
@@ -264,7 +280,7 @@ void Window::update()
   Input::update();
 
   // Camera Transformation
-  if (Input::buttonPressed(Qt::RightButton))
+  if (Input::buttonPressed(Qt::LeftButton))
   {
     static const float transSpeed = 0.5f;
     static const float rotSpeed   = 0.5f;

@@ -8,7 +8,9 @@
 #ifndef BSTNODE_H
 #define BSTNODE_H
 #include "BinNode.h"
-
+#ifndef NULL
+#define NULL 0
+#endif
 // Simple binary tree node implementation
 template <typename Key, typename E>
 class BSTNode : public BinNode<E> {
@@ -38,6 +40,11 @@ public:
   void setRight(BinNode<E>* b) { rc = (BSTNode*)b; }
 
   // Return true if it is a leaf, false otherwise
-  bool isLeaf() { return (lc == NULL) && (rc == NULL); }
+  bool isLeaf() {
+	  if ((lc == NULL) && (rc == NULL)) 
+		  return true;
+	  else
+		  return false;
+  }
 };
 #endif

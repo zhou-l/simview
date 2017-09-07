@@ -16,11 +16,18 @@ public:
 		_id(id)
 	{}
 
+	spatialDataPt(FLOATVECTOR3 pos, UINT64 id) :
+		_pos(pos),
+		_id(id)
+	{}
+
 	UINT64 id() const { return _id; }
 	void id(const UINT64& val) { _id = val; }
 
 	FLOATVECTOR3 pos() const { return _pos;  }
 	void pos(const FLOATVECTOR3& val) { _pos = val; }
+
+	FLOATVECTOR3 coord() const { return _pos; }
 	
 private:
 	FLOATVECTOR3  _pos;

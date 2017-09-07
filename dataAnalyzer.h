@@ -2,13 +2,17 @@
 #include "KDtree.h"
 #include "spatialDataPt.h"
 
-class dataAnalyzer
+class DataAnalyzer
 {
 public:
-	dataAnalyzer();
-	~dataAnalyzer();
-private:
-	// KD tree using 3D fp-coordinates as key, id as value?
-	KD<spatialDataPt>*         _kdtree;
+	DataAnalyzer();
+	~DataAnalyzer();
+
+	void buildKDtree(const std::vector<FLOATVECTOR3>& mesh, KD<spatialDataPt*>& kdtree);
+
+//	KD<spatialDataPt>* KDtree() const { return _kdtree; }
+//private:
+//	// KD tree using 3D fp-coordinates as key, id as value?
+//	KD<spatialDataPt>*         _kdtree;
 };
 

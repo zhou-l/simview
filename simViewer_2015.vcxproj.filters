@@ -101,7 +101,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dataAnalyzer.cpp">
-      <Filter>Generated Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -291,10 +291,13 @@
     <ClInclude Include="BSTNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="dataAnalyzer.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="spatialDataPt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dataAnalyzer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KDtree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

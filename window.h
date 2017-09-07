@@ -15,6 +15,7 @@
 #include <OpenGLFunctions>
 #include <OpenGLVertexArrayObject>
 
+
 class Profiler;
 class FrameResult;
 class OpenGLError;
@@ -23,6 +24,7 @@ class QOpenGLShaderProgram;
 class QOpenGLDebugLogger;
 class QMoveEvent;
 class DataLoader;
+class DataAnalyzer;
 class Window : public QOpenGLWindow,
                protected OpenGLFunctions
 {
@@ -72,10 +74,13 @@ private:
   Transform3D m_transform;
 
   // Data loader
-  DataLoader* m_dataLoader;
+  DataLoader*     m_dataLoader;
+  DataAnalyzer*   m_dataAnalyzer;
 
   // Private Helpers
   void printVersionInformation();
+
+ 
 };
 
 #endif // WINDOW_H

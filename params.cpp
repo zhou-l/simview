@@ -1,8 +1,14 @@
 #include "params.h"
 
-Params::Params()
-{
 
+Params::Params():
+	_meshKDtree(3)
+{
+}
+
+Params::~Params()
+{
+	_meshKDtree.clear();
 }
 
 const std::vector<std::vector<float> >& Params::pointData() const

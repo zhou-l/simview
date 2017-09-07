@@ -279,6 +279,7 @@
     <ClInclude Include="BSTNode.h" />
     <ClInclude Include="dataAnalyzer.h" />
     <ClInclude Include="dataHandling\CSVRow.h" />
+    <ClInclude Include="KDtree.h" />
     <ClInclude Include="MyVectors.h" />
     <ClInclude Include="OpenGL\OpenGLBuffer" />
     <ClInclude Include="OpenGL\OpenGLCommon" />
