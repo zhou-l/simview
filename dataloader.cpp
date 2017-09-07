@@ -1,6 +1,7 @@
 #include "dataloader.h"
 #include "dataHandling/CSVRow.h"
 #include "MyVectors.h"
+#include "SysTools.h"
 
 using namespace std;
 
@@ -18,6 +19,16 @@ DataLoader::~DataLoader()
 	_pointData.clear();
 }
 
+void DataLoader::cleanData()
+{
+	for (size_t i = 0; i < _pointData.size(); i++)
+		_pointData[i].clear();
+	_pointData.clear();
+
+	for (size_t i = 0; i < _ensembleData.size(); i++)
+		_ensembleData[i].clear();
+	_ensembleData.clear();
+}
 
 bool DataLoader::loadCSVtoPointCloud(const QString &fileName)
 {
@@ -94,12 +105,59 @@ bool DataLoader::loadCSVtoPointCloud(const QString &fileName)
 			_pointData.push_back(fVal_row);
 		}
     }
+	_ifData.close();
     return true;
+}
+
+bool DataLoader::loadEnsembleRunsTxt(const QString& folderName)
+{
+	// scan for the folder
+	vector<string> folderContent = SysTools::GetDirContents(folderName.toStdString(), "*", "txt");
+	vector<string> runFileList;
+	for (size_t i = 0; i < folderContent.size(); i++)
+	{
+		if (folderContent[i].find("run") != std::string::npos)
+			runFileList.push_back(folderContent[i]);
+	}
+	if (runFileList.empty())
+	{
+		cout << "No run file found, load failed!" << endl;
+		return false;
+	}
+
+	_ensembleData.resize(runFileList.size());
+	for (size_t i = 0; i < runFileList.size(); i++)
+	{
+		_ensembleData[i].clear();
+		ifstream ifin(runFileList[i].c_str());
+		if(!ifin.good())
+		{
+			cout << "Failed to open file " << runFileList[i] << endl;
+			ifin.close();
+			return false;
+		}
+		float val = 0.0f;
+		while (ifin >> val)
+		{
+			if (ifin.eof())
+				break; // try to read pass the end of file
+			else
+				_ensembleData[i].push_back(val);
+		}
+		ifin.close();
+	}
+
+	return true;
 }
 
 std::vector<std::vector<float> > DataLoader::pointData() const
 {
     return _pointData;
+}
+
+std::vector<std::vector<float> > DataLoader::ensembleData() const
+{
+	return _ensembleData;
 }
 
 void DataLoader::setPointData(const std::vector<std::vector<float> > &pointData)

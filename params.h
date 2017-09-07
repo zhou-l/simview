@@ -15,11 +15,16 @@ public:
     const std::vector<Vertex>& vertices() const;
     void setVertices(const std::vector<Vertex> &vertices);
 
-	const KD<spatialDataPt*>& meshKDTree()  { return _meshKDtree; }
+	KD<spatialDataPt*>& meshKDTree_unsafe()  { return _meshKDtree; }
 	void meshKDTree(const KD<spatialDataPt*>& val) { _meshKDtree = val; }
+
+	const std::vector<std::vector<float> >& ensembleData() const;
+	void setEnsembleData(const std::vector<std::vector<float> > &val);
 	
 private:
     std::vector<std::vector<float>> _pointData;
+	std::vector<std::vector<float>> _ensembleData;
+
     std::vector<Vertex>             _vertices;
 	KD<spatialDataPt*>              _meshKDtree;
 

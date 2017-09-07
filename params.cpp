@@ -30,3 +30,13 @@ void Params::setVertices(const std::vector<Vertex> &vertices)
 {
     _vertices = vertices;
 }
+
+const std::vector<std::vector<float> >& Params::ensembleData() const
+{
+	return _ensembleData;
+}
+
+void Params::setEnsembleData(const std::vector<std::vector<float> > &val)
+{
+	_ensembleData = val;
+}

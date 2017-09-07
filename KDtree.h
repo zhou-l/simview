@@ -86,6 +86,8 @@ public:
 
 	}
 
+	BinNode<E>* rootNode() const { return root; }
+
 private:
 	BinNode<E>* root;
 	int D;                 // Dimension of the key

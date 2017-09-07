@@ -81,7 +81,7 @@ Window::Window() :
   m_profiler->setOffset(0.0f, 0.0f, 0.95f, 0.0f);
   Profiler::setProfiler(m_profiler);
 #endif // GL_DEBUG
-  m_transform.translate(0.0f, 0.0f, -2.0f);
+  m_transform.translate(0.0f, 0.0f, -4.0f);
   OpenGLError::pushErrorHandler(this);
   m_frameTimer.start();
 
@@ -227,7 +227,8 @@ bool Window::loadData()
     QString filePrefix = tr("C:\\MyData\\Utah_heart_ischema\\201701_Conductivity\\mesh\\");
     QString fileName = tr("heartPts.csv");
     vector<Vertex> verts;
-    bool fileLoaded = m_dataLoader->loadCSVtoPointCloud(filePrefix+fileName);
+    // Load mesh file
+	bool fileLoaded = m_dataLoader->loadCSVtoPointCloud(filePrefix+fileName);
     if(!fileLoaded || m_dataLoader->attrib_names().size() < 3)
     {
          verts.assign(sg_vertexes, sg_vertexes + sizeof(sg_vertexes)/sizeof(Vertex));
@@ -236,6 +237,12 @@ bool Window::loadData()
          return false;
     }
     g_params.setPointData(m_dataLoader->pointData());
+	// Load run files
+	QString runFileFolder = tr("C:/MyData/Utah_heart_ischema/201701_Conductivity/simRuns/dataset_1");
+	bool runFilesLoaded = m_dataLoader->loadEnsembleRunsTxt(runFileFolder);
+	g_params.setEnsembleData(m_dataLoader->ensembleData());
+	//clean data in dataloader
+	m_dataLoader->cleanData();
 
     // Convert to point data
     vector<vector<float> > pointData = g_params.pointData();
@@ -254,11 +261,11 @@ bool Window::loadData()
     g_params.setVertices(verts);
 
 	// build KD-tree
-	KD<spatialDataPt*> meshKDtree(3);
-	m_dataAnalyzer->buildKDtree(fvPtData, meshKDtree);
-	cout << "KD tree node #= " << meshKDtree.size()<<endl;
-	g_params.meshKDTree(meshKDtree);
-	cout << "global KD tree node #= " << g_params.meshKDTree().size() << endl;
+	KD<spatialDataPt*>* meshKDtree = new KD<spatialDataPt*>(3);
+	m_dataAnalyzer->buildKDtree(fvPtData, *meshKDtree);
+	cout << "KD tree node #= " << meshKDtree->size()<<endl;
+	g_params.meshKDTree(*meshKDtree);
+	cout << "global KD tree node #= " << g_params.meshKDTree_unsafe().size() << endl;
 
     return true;
 }
@@ -319,7 +326,7 @@ void Window::update()
   }
 
   // Update instance information
-  m_transform.rotate(1.0f, QVector3D(0.4f, 0.3f, 0.3f));
+  //m_transform.rotate(1.0f, QVector3D(0.4f, 0.3f, 0.3f));
 
   // Schedule a redraw
   QOpenGLWindow::update();
