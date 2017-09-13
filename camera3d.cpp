@@ -6,6 +6,14 @@ const QVector3D Camera3D::LocalUp(0.0f, 1.0f, 0.0f);
 const QVector3D Camera3D::LocalRight(1.0f, 0.0f, 0.0f);
 
 // Transform By (Add/Scale)
+
+void Camera3D::reset()
+{
+	m_world.setToIdentity();
+	m_rotation = QQuaternion();
+	m_translation = QVector3D(0, 0, 0);
+}
+
 void Camera3D::translate(const QVector3D &dt)
 {
   m_dirty = true;
@@ -35,7 +43,7 @@ void Camera3D::setRotation(const QQuaternion &r)
 const QMatrix4x4 &Camera3D::toMatrix()
 {
   if (m_dirty)
-  {
+  {// world to camera matrix
     m_dirty = false;
     m_world.setToIdentity();
     m_world.rotate(m_rotation.conjugate());

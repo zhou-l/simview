@@ -51,9 +51,12 @@ protected:
   void keyReleaseEvent(QKeyEvent *event);
   void mousePressEvent(QMouseEvent *event);
   void mouseReleaseEvent(QMouseEvent *event);
+  void mouseMoveEvent(QMouseEvent* event);
+  void wheelEvent(QWheelEvent* event);
   void moveEvent(QMoveEvent *ev);
 
   bool loadData();
+  void analyzeData();
 private:
   // OpenGL State Information
   OpenGLBuffer m_vertex;
@@ -79,6 +82,9 @@ private:
 
   // Private Helpers
   void printVersionInformation();
+
+  // arcball
+  QVector3D get_arcball_vector(int x, int y);
 
  
 };

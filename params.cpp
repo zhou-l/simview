@@ -2,13 +2,17 @@
 
 
 Params::Params():
-	_meshKDtree(3)
+    _meshKDtree(3)
 {
+	VolBlockSize(4);
+
+	ensStatNumOutliers(4);
+	ensStatNumNeighbors(8);
 }
 
 Params::~Params()
 {
-	_meshKDtree.clear();
+    _meshKDtree.clear();
 }
 
 const std::vector<std::vector<float> >& Params::pointData() const
@@ -33,10 +37,10 @@ void Params::setVertices(const std::vector<Vertex> &vertices)
 
 const std::vector<std::vector<float> >& Params::ensembleData() const
 {
-	return _ensembleData;
+    return _ensembleData;
 }
 
 void Params::setEnsembleData(const std::vector<std::vector<float> > &val)
 {
-	_ensembleData = val;
+    _ensembleData = val;
 }

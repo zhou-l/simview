@@ -7,6 +7,15 @@
 #pragma warning(disable : 4996)
 using namespace std;
 
+VolumeData::VolumeData():
+	_dim(UINT64VECTOR3(0,0,0)),
+	_voxelByteSize(0),
+	_data(NULL),
+	_isSigned(false),
+	_isFloat(false),
+	_backgrndVal(-1),
+	_histogram2D(NULL)
+{}
 
 VolumeData::VolumeData(UINT64VECTOR3 dim, int voxelByteSize, int value, bool isSigned, bool isFloat):
 _dim(dim),
@@ -1599,4 +1608,9 @@ void VolumeData::rotateDataSampleToPlane(const PlaneCoeffs& P, float& x, float& 
 	x = newPt.x;
 	y = newPt.y;
 	z = newPt.z;
+}
+
+void VolumeData::pad(UINT64VECTOR3 newVolSize)
+{
+	// for now, it's just a place holder
 }

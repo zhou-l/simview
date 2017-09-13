@@ -2,12 +2,12 @@
 #define VOLUME_DATA_H
 #include "MyVectors.h"
 
-const int MAX_VOL_VAL_INT = 1024;
-const int MAX_VOL_VAL_UINT = 2048;
-const int MAX_VOL_VAL_SHORT = 512;
-const int MAX_VOL_VAL_USHORT = 1024;
-const int MAX_VOL_VAL_CHAR = 128;
-const int MAX_VOL_VAL_UCHAR = 256;
+const int MAX_VOL_VAL_INT = 1024 - 1;
+const int MAX_VOL_VAL_UINT = 2048 - 1;
+const int MAX_VOL_VAL_SHORT = 512 - 1;
+const int MAX_VOL_VAL_USHORT = 1024 - 1;
+const int MAX_VOL_VAL_CHAR = 128 - 1;
+const int MAX_VOL_VAL_UCHAR = 256 - 1;
 
 
 struct voxelTypeDesc{
@@ -19,6 +19,7 @@ struct voxelTypeDesc{
 class VolumeData
 {
 public:
+	VolumeData();
 	VolumeData(UINT64VECTOR3 dim, int voxelByteSize, int value, bool isSigned = false, bool isFloat = false);
 	VolumeData(UINT64VECTOR3 dim, int voxelByteSize, void* data, bool isSigned = false, bool isFloat = false);
 	VolumeData(UINT64VECTOR3 dim, int voxelByteSize, const char* filename, bool isSigned = false, bool isFloat = false);
@@ -60,6 +61,8 @@ public:
 	float computeDataSampleOnPlane(const PlaneCoeffs& P, const float& x, const float& y); // Given coefficients of a plane and two elements of a value, and compute the third element
 	void  rotateDataSampleToPlane(const PlaneCoeffs& P, float& x, float& y, float& z);
 	/////////////////////////////////////////
+	// pad the volume
+	void pad(UINT64VECTOR3 newVolSize);
 
 	// create a 1/8 volume
 	VolumeData* downSampleOneLevel();

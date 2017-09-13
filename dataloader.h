@@ -4,6 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <QString>
+class Volume;
 class DataLoader
 {
 public:
@@ -12,6 +13,7 @@ public:
 
     bool loadCSVtoPointCloud(const QString& fileName);
 	bool loadEnsembleRunsTxt(const QString& folderName);
+
 	void cleanData();
 
     std::vector<std::vector<float> > pointData() const;

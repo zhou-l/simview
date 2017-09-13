@@ -250,6 +250,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Boxplot.cpp" />
     <ClCompile Include="dataAnalyzer.cpp" />
     <ClCompile Include="SysTools.cpp" />
     <ClCompile Include="volume\VolumeData.cpp" />
@@ -276,11 +277,14 @@
   <ItemGroup>
     <ClInclude Include="BinNode.h" />
     <ClInclude Include="book.h" />
+    <ClInclude Include="Boxplot.h" />
     <ClInclude Include="BSTNode.h" />
     <ClInclude Include="dataAnalyzer.h" />
     <ClInclude Include="dataHandling\CSVRow.h" />
+    <ClInclude Include="Header.h" />
     <ClInclude Include="KDtree.h" />
     <ClInclude Include="MyVectors.h" />
+    <ClInclude Include="octreenode.h" />
     <ClInclude Include="OpenGL\OpenGLBuffer" />
     <ClInclude Include="OpenGL\OpenGLCommon" />
     <ClInclude Include="OpenGL\OpenGLError" />
@@ -288,7 +292,9 @@
     <ClInclude Include="OpenGL\OpenGLMarkerScoped" />
     <ClInclude Include="OpenGL\OpenGLShaderProgram" />
     <ClInclude Include="OpenGL\OpenGLVertexArrayObject" />
+    <ClInclude Include="RegularGrid.h" />
     <ClInclude Include="spatialDataPt.h" />
+    <ClInclude Include="stat_info.h" />
     <ClInclude Include="StdDefines.h" />
     <ClInclude Include="SysTools.h" />
     <ClInclude Include="volume\VolumeData.h" />
@@ -327,6 +333,7 @@
     <ClInclude Include="scythe\scythestat\optimize.h" />
     <ClInclude Include="params.h" />
     <ClInclude Include="graph\pointmass.h" />
+    <ClInclude Include="voxelizer.h" />
     <CustomBuild Include="profiler.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">profiler.h;release\moc_predefs.h;C:\Qt\5.9.1\msvc2015_64\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">profiler.h;release\moc_predefs.h;C:\Qt\5.9.1\msvc2015_64\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>

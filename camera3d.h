@@ -15,6 +15,7 @@ public:
   // Constructors
   Camera3D();
 
+  void reset();
   // Transform By (Add/Scale)
   void translate(const QVector3D &dt);
   void translate(float dx, float dy, float dz);

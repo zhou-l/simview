@@ -103,6 +103,9 @@
     <ClCompile Include="dataAnalyzer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Boxplot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dataHandling\CSVRow.h">
@@ -298,6 +301,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="KDtree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RegularGrid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="voxelizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Boxplot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stat_info.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="octreenode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
