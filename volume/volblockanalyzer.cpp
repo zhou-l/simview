@@ -96,12 +96,86 @@ void VolBlockAnalyzer::ensemble_propStats(const std::vector<StatInfo>& childrenS
 	propagated_block_stats._var = p_var;
 }
 
-void VolBlockAnalyzer::ensemble_neighborBlocksAnalysis(const EnsembleVolBlock * eb, const std::vector<VolumeData*>& ensVols, FLOATVECTOR3 blockPos, StatInfo & propagated_block_stats)
+void VolBlockAnalyzer::ensemble_neighborBlocksAnalysis(const std::vector<EnsembleVolBlock*>& ebList, const UINT64VECTOR3 & ebListDim, FLOATVECTOR3 blockPos, StatInfo & blockStats)
 {
-	// get different parts
+	// Compute similarity measures for a node's neighbors
+	UINT64VECTOR3 curNodePos = UINT64VECTOR3(UINT64(float(ebListDim.x) * blockPos.x), 
+		UINT64(float(ebListDim.y) * blockPos.y), UINT64(float(ebListDim.z) * blockPos.z));
+	INTVECTOR3 iCurNodePos = INTVECTOR3(curNodePos.x, curNodePos.y, curNodePos.z);
+	UINT64 curId = (curNodePos.z * ebListDim.y + curNodePos.y) * ebListDim.x + curNodePos.x;
+	int numNeighbors = g_params.ensStatNumNeighbors();
+	if (numNeighbors != 8 && numNeighbors != 27)
+		numNeighbors = 8;
+	blockStats._statDists.resize(numNeighbors);
+	// check the neighborhood
+	int cnt = 0;
+	for (int nz = -1; nz <= 1; nz++)
+	{
+		for (int ny = -1; ny <= 1; ny++)
+		{
+			for (int nx = -1; nx <= 1; nx++)
+			{
+				if (nx == 0 && ny == 0 && nz == 0)
+					continue;
+				INTVECTOR3 npos = iCurNodePos + INTVECTOR3(nx, ny, nz);			
+				if (numNeighbors == 8)
+				{
+					if(abs(nx) + abs(ny) + abs(nz) > 1)
+						continue; // just consider voxels that are 1-voxel away from center
+				}
+				if (npos.minVal() < 0 || npos.x >= ebListDim.x || npos.y >= ebListDim.y || npos.z >= ebListDim.z) //if the neighbor is out of bound
+				{
+					blockStats._statDists[cnt].clear(); // similarity information doesn't exist.
+				}
+				else
+				{
+					UINT64 nId = (UINT64(npos.z) * ebListDim.y + UINT64(npos.y)) * ebListDim.x + UINT64(npos.x);
+					vector<float> statDists = ensemble_betweenBlockAnalysis(ebList[curId], ebList[nId]);
+
+					blockStats._statDists[cnt] = statDists;
+				}
+				cnt++;
+			}
+		}
+	}
+
 }
 
-void VolBlockAnalyzer::ensemble_betweenBlockAnalysis(const EnsembleVolBlock * eb1, const EnsembleVolBlock * eb2)
+
+vector<float> VolBlockAnalyzer::ensemble_betweenBlockAnalysis(const EnsembleVolBlock * eb1, const EnsembleVolBlock * eb2)
 {
+	UINT64VECTOR3 ebDim = eb1->Dim();
+	vector<float> ebDists(ebDim.volume(), 0.0f); // the array of statistical divergence
+	float * peb1 = eb1->Data();
+	float * peb2 = eb2->Data();
+	int num_runs = eb1->numEnsembles();
+
+
+	for (UINT64 z = 0; z < ebDim.z; z++)
+	{
+		for (UINT64 y = 0; y < ebDim.y; y++)
+		{
+			for (UINT64 x = 0; x < ebDim.x; x++)
+			{
+				UINT64 id = (z * ebDim.y + y) * ebDim.x + x;
+				// compute KL divergence
+		
+				vector<float> p(&peb1[id * num_runs], &peb1[(id + 1)*num_runs]);
+				vector<float> q(&peb2[id * num_runs], &peb2[(id + 1)*num_runs]);
+
+				float sump = 0.f;
+				float sumq = 0.f;
+
+				vector<float> np = normalizeDistr(p, sump);
+				vector<float> nq = normalizeDistr(q, sumq);
+				// can use any divergence(distance) measurements
+				if (sump * sumq == 0.0f)
+					ebDists[id] = 0.f; // either of the arrays has probability of 0!!!
+				else
+					ebDists[id] = KLdivergence(np, nq);
+			}
+		}
+	}
+	return ebDists;
 }
 

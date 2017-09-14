@@ -5,11 +5,13 @@
 
 DataAnalyzer::DataAnalyzer()
 {
+	_volBlkAnalyzer = new VolBlockAnalyzer();
 }
 
 
 DataAnalyzer::~DataAnalyzer()
 {
+	SAFE_DELETE(_volBlkAnalyzer);
 }
 
 void DataAnalyzer::buildKDtree(const std::vector<FLOATVECTOR3>& mesh, KD<spatialDataPt*>& kdtree)
@@ -56,6 +58,10 @@ void DataAnalyzer::buildRegGrid(const std::vector<FLOATVECTOR3>& mesh, RegularGr
 		voxContent.push_back(pid);
 		grid.setElement(voxInd, voxContent);
 	}
+}
+
+void DataAnalyzer::buildEnsembleVolBlockList(const std::vector<VolumeData>& ensembleVols, std::vector<EnsembleVolBlock*>& ebList, UINT64VECTOR3 & eblistDim)
+{
 }
 
 void DataAnalyzer::convertMeshIdToGridPos(std::vector<UINT64VECTOR3>& volCoord_lookupTbl, VolumeData** volPtCnt, const std::vector<FLOATVECTOR3>& mesh, UINT64VECTOR3 gridDim)
@@ -139,6 +145,8 @@ void DataAnalyzer::convertEnsembleRunsToVol(std::vector<VolumeData*>& vols, cons
 	for (size_t i = 0; i < vols.size(); i++)
 	{
 		float* fData = new float[volDim.volume()];
+		// clear memory
+		memset(fData, 0, sizeof(float) * volDim.volume());
 		vols[i] = new VolumeData(volDim, 4, fData, true, true);
 	}
 
@@ -172,12 +180,6 @@ void DataAnalyzer::analyzeEnsembleRuns(const KD<spatialDataPt*>& kdtree, vector<
 		kdtree_ensemble_analysis(node->left(), ensemble);
 		kdtree_ensemble_analysis(node->right(), ensemble);
 	}
-
-}
-
-void DataAnalyzer::analyzeEnsembleNodes(std::vector<VolumeData*>& ensembleVols)
-{
-
 
 }
 
@@ -216,9 +218,24 @@ void DataAnalyzer::createEnsembleOctree(std::vector<VolumeData*>& ensembleVols, 
 	ensembleOctTree->fillInEnsembleData(ensembleVols, blkSize);
 
 	// Analyze the volume!
-	analyzeEnsembleNodes();
+	ensembleOctTree->analyzeEnsembleData(g_params.ensVolBlocks(), g_params.ensVolBlkListDim(), _volBlkAnalyzer);
 }
 
+//void DataAnalyzer::analyzeEnsembleNodes(std::vector<EnsembleVolBlock*> ensVolBlockList, const UINT64VECTOR3 & listDim)
+//{
+//	// analyze the list of ensemble blocks
+//	for (UINT64 bz = 0; bz < listDim.z; bz++)
+//	{
+//		for (UINT64 by = 0; by < listDim.y; by++)
+//		{
+//			for (UINT64 bx = 0; bx < listDim.x; bx++)
+//			{
+//				UINT64 blkId = (bz * listDim.y + by) * listDim.x + bx;
+//
+//			}
+//		}
+//	}
+//}
 
 void DataAnalyzer::kdtree_ensemble_analysis(BinNode<spatialDataPt*>* kdnode, vector<vector<float>>& ensemble)
 {
@@ -235,17 +252,3 @@ void DataAnalyzer::kdtree_ensemble_analysis(BinNode<spatialDataPt*>* kdnode, vec
 
 	}
 }
-
-void DataAnalyzer::inNodeAnalysis(std::vector<VolumeData*>& ensembleVols)
-{
-	VolumeBlock;
-
-}
-
-void DataAnalyzer::betweenNodeAnalysis(std::vector<VolumeData*>& ensembleVols, int num_neighbors)
-{
-
-
-}
-
-

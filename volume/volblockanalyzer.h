@@ -17,10 +17,10 @@ public:
 	void ensemble_inBlockAnalysis(const EnsembleVolBlock* eb, StatInfo& propagated_block_stats);
 	// compute propagated block stats from a list of stats
 	void ensemble_propStats(const std::vector<StatInfo>& childrenStats, StatInfo& propagated_block_stats);
-	void ensemble_neighborBlocksAnalysis(const EnsembleVolBlock* eb, const std::vector<VolumeData*>& ensVols, FLOATVECTOR3 blockPos, StatInfo& propagated_block_stats);
+	void ensemble_neighborBlocksAnalysis(const std::vector<EnsembleVolBlock*>& ebList, const UINT64VECTOR3& ebListDim, FLOATVECTOR3 blockPos, StatInfo& blockStats);
 
 	// Compute a set of KL differences???
-	void ensemble_betweenBlockAnalysis(const EnsembleVolBlock* eb1, const EnsembleVolBlock* eb2);
+	std::vector<float> ensemble_betweenBlockAnalysis(const EnsembleVolBlock* eb1, const EnsembleVolBlock* eb2);
 private:
 
 

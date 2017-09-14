@@ -2,6 +2,7 @@
 #define OCTREE_H
 #include "MyVectors.h"
 #include "octreenode.h"
+#include <fstream>
 class VolBlockAnalyzer;
 class VolumeData;
 
@@ -19,14 +20,17 @@ public:
 
     bool build(int levels);
 	void fillInEnsembleData(std::vector<VolumeData*>& ensVols, int blockSize);
-	void analyzeEnsembleData(std::vector<VolumeData*>& ensVols, VolBlockAnalyzer* analyzer);
+	void analyzeEnsembleData(const std::vector<EnsembleVolBlock*>& ebList, const UINT64VECTOR3& ebListDim, VolBlockAnalyzer* analyzer);
+	void writeContent(std::string& filename);
 
 protected:
 	// recursive functions
 	void octreeBuild(octreeNode* node);
 	void octreeDestroy(octreeNode* node);
 	void octreeFillEnsembleData(octreeNode* node, std::vector<VolumeData*>& ensVols, int blockSize);
-	void octreeAnalyzeEnsData(octreeNode* node, std::vector<VolumeData*>& ensVols, VolBlockAnalyzer* analyzer);
+	void octreeAnalyzeEnsData(octreeNode* node, const std::vector<EnsembleVolBlock*>& ebList,
+		const UINT64VECTOR3& ebListDim, VolBlockAnalyzer* analyzer);
+	void octreeWriteContent(octreeNode* node, std::ofstream& file);
 
     octreeNode* _root;
 

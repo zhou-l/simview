@@ -285,7 +285,7 @@ bool Window::loadData()
     UINT64VECTOR3 gridDim(128, 128, 128);
     VolumeData* ptCntVol = NULL;
     m_dataAnalyzer->convertMeshIdToGridPos(posTable, &ptCntVol, fvPtData, gridDim);
-    // conert ensembles to volumes
+    // convert ensembles to volumes
     vector<VolumeData*> ensembleVols;
     m_dataAnalyzer->convertEnsembleRunsToVol(ensembleVols, g_params.ensembleData(), gridDim, posTable, *ptCntVol);
     // set to global varaible
@@ -298,6 +298,9 @@ bool Window::loadData()
         QString filename = runVolFilePrefix + QString("%1").arg(i);
         ensembleVols[i]->writeToFile(filename.toStdString().c_str(), NULL);
     }
+	// Build ensemble octree
+	
+	m_dataAnalyzer->createEnsembleOctree(ensembleVols/*g_params.ensembleVols()*/, g_params.ensembleOctree());
 
 
     // build KD-tree

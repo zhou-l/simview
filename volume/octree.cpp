@@ -5,6 +5,10 @@
 #include <iostream>
 
 using namespace std;
+// helper functions
+UINT64VECTOR3             ensVolBlkListDim;
+vector<EnsembleVolBlock*> ensVolBlocks;
+
 octree::octree(OCT_TYPE type) :
 	_type(type),
 	_root(NULL)
@@ -29,7 +33,7 @@ bool octree::build(int levels)
 	_tree_levels = levels;
 	// we have padded volume now!
 	_root = new octreeNode();
-	_root->_level = _tree_levels;
+	_root->_level = _tree_levels - 1;
 	octreeBuild(_root);
 
 	cout << "done!" << endl;
@@ -44,18 +48,37 @@ void octree::fillInEnsembleData(std::vector<VolumeData*>& ensVols, int blockSize
 		return;
 	}
 	cout << __FUNCTION__ << "...";
+	// resize with correct number of blocks
+	ensVolBlocks.clear();
+	UINT64 numBlkPerDim = 1 << (_tree_levels - 1);
+	ensVolBlkListDim = UINT64VECTOR3(numBlkPerDim, numBlkPerDim, numBlkPerDim);
+	ensVolBlocks.resize(ensVolBlkListDim.volume());
+	cout <<endl<< "Number of ensemble blocks = " << ensVolBlkListDim << endl;
+
 	octreeFillEnsembleData(_root, ensVols, blockSize);
+	//set global param
+	g_params.ensVolBlkListDim(ensVolBlkListDim);
+	g_params.ensVolBlocks(ensVolBlocks);
 	cout << "done!" << endl;
 }
 
-void octree::analyzeEnsembleData(std::vector<VolumeData*>& ensVols, VolBlockAnalyzer * analyzer)
+void octree::analyzeEnsembleData(const std::vector<EnsembleVolBlock*>& ebList, const UINT64VECTOR3& ebListDim, VolBlockAnalyzer * analyzer)
 {
 	if (_type != OCT_ENSEMBLE)
 	{
 		cout << "Error octree type! OCT_ENSEMBLE required!" << endl;
 		return;
 	}
-	octreeAnalyzeEnsData(_root, ensVols, analyzer);
+	cout << __FUNCTION__ << "...";
+	octreeAnalyzeEnsData(_root, ebList, ebListDim, analyzer);
+	cout << "done!" << endl;
+}
+
+void octree::writeContent(std::string & filename)
+{
+	ofstream ofOctree(filename.c_str());
+	ofOctree << "Ensemble octree content " << endl;
+	octreeWriteContent();
 }
 
 void octree::octreeBuild(octreeNode* node)
@@ -65,7 +88,9 @@ void octree::octreeBuild(octreeNode* node)
 	{
 		if (node->_level > 0)
 		{
-			float portion = 1.0f / float(2 << ( _tree_levels - node->_level - 1));
+			if (node->_level == _tree_levels - 1)
+				node->_volStartPos = FLOATVECTOR3(0, 0, 0);
+			float portion = 1.0f / float(1 << ( _tree_levels - node->_level));
 			for (int z = 0; z < 2; z++)
 			{
 				for (int y = 0; y < 2; y++)
@@ -76,7 +101,7 @@ void octree::octreeBuild(octreeNode* node)
 						node->_children[i] = new octreeNode();
 						node->_children[i]->_parent = node;
 						node->_children[i]->_level = node->_level - 1;
-						node->_volPortion = portion * FLOATVECTOR3(float(x), float(y), float(z));
+						node->_children[i]->_volStartPos = node->_volStartPos + portion * FLOATVECTOR3(float(x), float(y), float(z));
 						// depth build
 						octreeBuild(node->_children[i]);
 					}
@@ -115,26 +140,32 @@ void octree::octreeFillEnsembleData(octreeNode * node, std::vector<VolumeData*>&
 	if(node->_level == 0) // leaf nodes
 	{ 
 		UINT64VECTOR3 volDim = ensVols[0]->getDim();
-		UINT64VECTOR3 brickStart = UINT64VECTOR3(UINT64(float(volDim.x) * node->_volPortion.x),
-			UINT64(float(volDim.y) * node->_volPortion.y), 
-			UINT64(float(volDim.z) * node->_volPortion.z));
+		UINT64VECTOR3 brickStart = UINT64VECTOR3(UINT64(float(volDim.x) * node->_volStartPos.x),
+			UINT64(float(volDim.y) * node->_volStartPos.y), 
+			UINT64(float(volDim.z) * node->_volStartPos.z));
 		blk = new EnsembleVolBlock(ensVols, brickStart, UINT64VECTOR3(blockSize, blockSize, blockSize));
+		// Add to ensemble vol block list
+		UINT64VECTOR3 brickPos = brickStart / UINT64(blockSize);
+		UINT64 blkInd = (brickPos.z * ensVolBlkListDim.y + brickPos.y) * ensVolBlkListDim.x + brickPos.x;
+		ensVolBlocks[blkInd] = blk;
+
 	}
 	node->_data = blk;
 
 }
 
-void octree::octreeAnalyzeEnsData(octreeNode * node, std::vector<VolumeData*>& ensVols, VolBlockAnalyzer * analyzer)
+void octree::octreeAnalyzeEnsData(octreeNode * node, const std::vector<EnsembleVolBlock*>& ebList, const UINT64VECTOR3& ebListDim, VolBlockAnalyzer * analyzer)
 {
 	if (node == NULL)
 		return;
 	for (int i = 0; i < 8; i++)
-		octreeAnalyzeEnsData(node->_children[i], ensVols, analyzer);
+		octreeAnalyzeEnsData(node->_children[i], ebList, ebListDim, analyzer);
 	if (node->_level == 0)
 	{
 		// compute the root node statistics
 		analyzer->ensemble_inBlockAnalysis(reinterpret_cast<EnsembleVolBlock*>(node->_data), node->_statInfo);
-		analyzer->ensemble_neighborBlocksAnalysis(reinterpret_cast<EnsembleVolBlock*>(node->_data), ensVols, node->_volPortion);
+		analyzer->ensemble_neighborBlocksAnalysis(ebList, ebListDim,
+			node->_volStartPos, node->_statInfo);
 	}
 	else
 	{
@@ -143,4 +174,14 @@ void octree::octreeAnalyzeEnsData(octreeNode * node, std::vector<VolumeData*>& e
 			childrenStats[i] = node->_children[i]->_statInfo;
 		analyzer->ensemble_propStats(childrenStats, node->_statInfo);
 	}
+}
+
+void octree::octreeWriteContent(octreeNode * node, std::ofstream & file)
+{
+	if (node == NULL)
+		return;
+	for (int i = 0; i < 8; i++)
+		octreeWriteContent(node, file);
+	file << node->_level << ": " << node->_volStartPos << endl
+		<< node->_statInfo << endl;
 }

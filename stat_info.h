@@ -15,11 +15,18 @@ public:
 		_max(0.0f)
 	{
 		_outliers.resize(g_params.ensStatNumOutliers(), 0.0f);
-		_statDists.resize(g_params.ensStatNumNeighbors(), 0.0f);
+		_statDists.resize(g_params.ensStatNumNeighbors());
 	}
 
 	~StatInfo() {}
 
+	friend std::ostream& operator << (std::ostream& os, const StatInfo& v)
+	{
+		os << _mu << endl
+			<< _var << endl
+			<< _median << endl
+			<< _min << endl << _max << endl << _statDists;
+	}
 
 public:
 	float _mu;
@@ -30,5 +37,6 @@ public:
 
 	std::vector<float> _outliers;
 	// statistical differences to the node's neighbors
-	std::vector<float> _statDists;
+	// The difference to each neighor is a list of float 
+	std::vector<std::vector<float> > _statDists;
 };

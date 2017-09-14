@@ -15,7 +15,7 @@
 #endif
 #define PBRT_VERSION 1.0
 #define RAY_EPSILON 1e-3f
-
+using std::vector;
 inline float Lerp(float t, float v1, float v2) {
     return (1.f - t) * v1 + t * v2;
 }
@@ -60,6 +60,31 @@ inline uint RoundUpPow2(uint v) {
     v |= v >> 8;
     v |= v >> 16;
     return v+1;
+}
+
+inline std::vector<float> normalizeDistr(const std::vector<float>& p, float& sum) // normalize a probability distribution
+{
+	sum = 0.0f;
+	for (vector<float>::const_iterator IT = p.begin(); IT != p.end(); ++IT)
+		sum += *IT;
+	vector<float> np = p;
+	if (sum != 0.0f)
+	{
+		float invSum = 1.0f / sum;
+		for (vector<float>::iterator IT = np.begin(); IT != np.end(); ++IT)
+			*IT *= invSum;
+	}
+	return np;
+}
+
+inline float KLdivergence(const std::vector<float>& p, const std::vector<float>& q)// p, q are normalized probability distributions
+{
+	// kl = sum p(i)*log(p(i)/q(i))
+	assert(p.size() == q.size());
+	float d = 0.0f;
+	for (vector<float>::const_iterator IT = p.begin(); IT != p.end(); ++IT)
+		d += *IT * log(*IT / (q[IT-p.begin()]));
+	return d;
 }
 
 extern Params g_params;

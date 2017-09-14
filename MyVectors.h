@@ -632,7 +632,7 @@ public:
   bool operator == ( const MATRIX2<T>& other ) const {return (other.m11==m11 && other.m12==m12 && other.m21==m21 && other.m22==m22); }
   bool operator != ( const MATRIX2<T>& other ) const {return (other.m11!=m11 || other.m12!=m12 || other.m21!=m21 || other.m22!=m22); }
 
-  friend std::ostream& operator<<(std::ostream &os,const MATRIX2<T>& m){os << m.m11 << '\t' << m.m12 << '\n' << m.m21 << '\t' << m.m22; return os;}
+  friend std::ostream& operator<<(std::ostream &os,const MATRIX2<T>& m){os << m.m11 << '\t' << m.m11 << '\n' << m.m21 << '\t' << m.m22; return os;}
 
   // binary operators with scalars
   MATRIX2<T> operator * ( T scalar ) const {return MATRIX2<T>(m11*scalar,m12*scalar,
@@ -708,9 +708,9 @@ public:
                                 other.m31!=m31 || other.m32!=m32 || other.m33!=m33); }
 
 
-  friend std::ostream& operator<<(std::ostream &os,const MATRIX3<T>& m){os << m.m11 << '\t' << m.m12 << '\t' << m.m13 << '\n'
-                                       << m.m21 << '\t' << m.m22 << '\t' << m.m23 << '\n'
-                                       << m.m31 << '\t' << m.m32 << '\t' << m.m33; return os;}
+  friend std::ostream& operator<<(std::ostream &os,const MATRIX3<T>& m){os << m.m11 << '\t' << m.m11 << '\t' << m.m13 << '\n'
+                                       << m.m21 << '\t' << m.m21 << '\t' << m.m23 << '\n'
+                                       << m.m31 << '\t' << m.m31 << '\t' << m.m33; return os;}
 
   // binary operators with matrices
   MATRIX3<T> operator * ( const MATRIX3<T>& other ) const {
@@ -925,10 +925,10 @@ public:
                                 other.m31!=m31 || other.m32!=m32 || other.m33!=m33 || other.m34!=m34 ||
                                 other.m41!=m41 || other.m42!=m42 || other.m43!=m43 || other.m44!=m44); }
 
-  friend std::ostream& operator<<(std::ostream &os,const MATRIX4<T>& m){os << m.m11 << '\t' << m.m12 << '\t' << m.m13 << '\t' << m.m14 << '\n'
-                                       << m.m21 << '\t' << m.m22 << '\t' << m.m23 << '\t' << m.m24 << '\n'
-                                       << m.m31 << '\t' << m.m32 << '\t' << m.m33 << '\t' << m.m34 << '\n'
-                                       << m.m41 << '\t' << m.m42 << '\t' << m.m43 << '\t' << m.m44 ; return os;}
+  friend std::ostream& operator<<(std::ostream &os,const MATRIX4<T>& m){os << m.m11 << '\t' << m.m11 << '\t' << m.m13 << '\t' << m.m14 << '\n'
+                                       << m.m21 << '\t' << m.m21 << '\t' << m.m23 << '\t' << m.m24 << '\n'
+                                       << m.m31 << '\t' << m.m31 << '\t' << m.m33 << '\t' << m.m34 << '\n'
+                                       << m.m41 << '\t' << m.m41 << '\t' << m.m43 << '\t' << m.m44 ; return os;}
 
   operator T*(void) {return &m11;}
   const T *operator *(void) const {return &m11;}
