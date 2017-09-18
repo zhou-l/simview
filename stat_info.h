@@ -22,10 +22,11 @@ public:
 
 	friend std::ostream& operator << (std::ostream& os, const StatInfo& v)
 	{
-		os << _mu << endl
-			<< _var << endl
-			<< _median << endl
-			<< _min << endl << _max << endl << _statDists;
+		os << v._mu << endl
+			<< v._var << endl
+			<< v._median << endl
+			<< v._min << endl << v._max << endl;// << _statDists;
+		return os;
 	}
 
 public:

@@ -26,39 +26,39 @@ void DataAnalyzer::buildKDtree(const std::vector<FLOATVECTOR3>& mesh, KD<spatial
 	kdtree.buildBalanceTree(dataMesh);
 }
 
-void DataAnalyzer::buildRegGrid(const std::vector<FLOATVECTOR3>& mesh, RegularGrid<vector<UINT64>>& grid)
-{
-	// The regular grid stores only the id in the mesh vector
-	UINT64VECTOR3 gridDim = grid.dim();
-	// subdivide the mesh to build a grid.
-	FLOATVECTOR3 meshMin(FLT_MAX, FLT_MAX, FLT_MAX);
-	FLOATVECTOR3 meshMax(-FLT_MAX, -FLT_MAX, -FLT_MAX);
-	for (vector<FLOATVECTOR3>::const_iterator IT = mesh.begin(); IT != mesh.end(); ++IT) {
-		meshMin.x = MIN(IT->x, meshMin.x);
-		meshMin.y = MIN(IT->y, meshMin.y);
-		meshMin.z = MIN(IT->z, meshMin.z);
-
-		meshMax.x = MAX(IT->x, meshMax.x);
-		meshMax.y = MAX(IT->y, meshMax.y);
-		meshMax.z = MAX(IT->z, meshMax.z);
-	}
-	FLOATVECTOR3 meshSize = meshMax - meshMin;
-	cout << "Mesh size = " << meshSize << endl;
-	FLOATVECTOR3 cellSize = FLOATVECTOR3(meshSize.x / float(gridDim.x), meshSize.y/float(gridDim.y), meshSize.z/float(gridDim.z));
-	cout << " Cell size = " << cellSize << endl;
-	// traverse the grid and fill particles
-	for (vector<FLOATVECTOR3>::const_iterator IT = mesh.begin(); IT != mesh.end(); ++IT)
-	{
-		UINT64 pid = IT - mesh.begin();
-		FLOATVECTOR3 pos_offset_norm = (*IT - meshMin)/meshSize;
-		UINT64VECTOR3 voxInd = UINT64VECTOR3(pos_offset_norm.x * (cellSize.x - 1), 
-			pos_offset_norm.y * (cellSize.y - 1), 
-			pos_offset_norm.z * (cellSize.z - 1));
-		vector<UINT64> voxContent = grid.element(voxInd);
-		voxContent.push_back(pid);
-		grid.setElement(voxInd, voxContent);
-	}
-}
+//void DataAnalyzer::buildRegGrid(const std::vector<FLOATVECTOR3>& mesh, RegularGrid<vector<UINT64>>& grid)
+//{
+//	// The regular grid stores only the id in the mesh vector
+//	UINT64VECTOR3 gridDim = grid.dim();
+//	// subdivide the mesh to build a grid.
+//	FLOATVECTOR3 meshMin(FLT_MAX, FLT_MAX, FLT_MAX);
+//	FLOATVECTOR3 meshMax(-FLT_MAX, -FLT_MAX, -FLT_MAX);
+//	for (vector<FLOATVECTOR3>::const_iterator IT = mesh.begin(); IT != mesh.end(); ++IT) {
+//		meshMin.x = MIN(IT->x, meshMin.x);
+//		meshMin.y = MIN(IT->y, meshMin.y);
+//		meshMin.z = MIN(IT->z, meshMin.z);
+//
+//		meshMax.x = MAX(IT->x, meshMax.x);
+//		meshMax.y = MAX(IT->y, meshMax.y);
+//		meshMax.z = MAX(IT->z, meshMax.z);
+//	}
+//	FLOATVECTOR3 meshSize = meshMax - meshMin;
+//	cout << "Mesh size = " << meshSize << endl;
+//	FLOATVECTOR3 cellSize = FLOATVECTOR3(meshSize.x / float(gridDim.x), meshSize.y/float(gridDim.y), meshSize.z/float(gridDim.z));
+//	cout << " Cell size = " << cellSize << endl;
+//	// traverse the grid and fill particles
+//	for (vector<FLOATVECTOR3>::const_iterator IT = mesh.begin(); IT != mesh.end(); ++IT)
+//	{
+//		UINT64 pid = IT - mesh.begin();
+//		FLOATVECTOR3 pos_offset_norm = (*IT - meshMin)/meshSize;
+//		UINT64VECTOR3 voxInd = UINT64VECTOR3(pos_offset_norm.x * (cellSize.x - 1), 
+//			pos_offset_norm.y * (cellSize.y - 1), 
+//			pos_offset_norm.z * (cellSize.z - 1));
+//		vector<UINT64> voxContent = grid.element(voxInd);
+//		voxContent.push_back(pid);
+//		grid.setElement(voxInd, voxContent);
+//	}
+//}
 
 void DataAnalyzer::buildEnsembleVolBlockList(const std::vector<VolumeData>& ensembleVols, std::vector<EnsembleVolBlock*>& ebList, UINT64VECTOR3 & eblistDim)
 {

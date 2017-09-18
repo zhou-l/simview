@@ -4,7 +4,7 @@
 const QVector3D Camera3D::LocalForward(0.0f, 0.0f, -1.0f);
 const QVector3D Camera3D::LocalUp(0.0f, 1.0f, 0.0f);
 const QVector3D Camera3D::LocalRight(1.0f, 0.0f, 0.0f);
-
+const QVector3D CAM_POS(0.0f, 0.0f, 2.0f);
 // Transform By (Add/Scale)
 
 void Camera3D::reset()
@@ -46,8 +46,16 @@ const QMatrix4x4 &Camera3D::toMatrix()
   {// world to camera matrix
     m_dirty = false;
     m_world.setToIdentity();
-    m_world.rotate(m_rotation.conjugate());
-    m_world.translate(-m_translation);
+  /*  m_world.rotate(m_rotation.conjugate());
+    m_world.translate(-m_translation);*/
+	//m_world.lookAt(m_translation, m_translation + forward().normalized(), up());
+	QVector3D eye(0.0f, 0.0f, 3.6f);
+	QVector3D at(0.0f, 0.0f, 0.0f);
+	QVector3D up(0.0f, 1.0f, 0.0f);
+	m_world.lookAt(CAM_POS, at, up);
+
+	m_world.translate(m_translation);
+	m_world.rotate(m_rotation);
   }
   return m_world;
 }

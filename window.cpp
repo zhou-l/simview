@@ -13,7 +13,7 @@
 #include "frameresult.h"
 #include "dataloader.h"
 #include "dataAnalyzer.h"
-#include "RegularGrid.h"
+//#include "RegularGrid.h"
 #include <iostream>
 // Custom includes
 #include <OpenGLError>
@@ -89,7 +89,7 @@ Window::Window() :
   m_profiler->setOffset(0.0f, 0.0f, 0.95f, 0.0f);
   Profiler::setProfiler(m_profiler);
 #endif // GL_DEBUG
-  m_camera.translate(CAM_POS.x, CAM_POS.y, CAM_POS.z);
+  //m_camera.translate(CAM_POS.x, CAM_POS.y, CAM_POS.z);
   OpenGLError::pushErrorHandler(this);
   m_frameTimer.start();
 
@@ -105,79 +105,110 @@ Window::~Window()
   makeCurrent();
   OpenGLError::popErrorHandler();
 }
-
 void Window::initializeGL()
 {
-    // load data
-    vector<Vertex> verts;
-    if (loadData())
-    {
-         cout << "Data loaded successfully! Num verts = " << verts.size() << endl;
-    }
-    verts = g_params.vertices();
-  // Initialize OpenGL Backend
-  initializeOpenGLFunctions();
-  connect(context(), SIGNAL(aboutToBeDestroyed()), this, SLOT(teardownGL()), Qt::DirectConnection);
-  connect(this, SIGNAL(frameSwapped()), this, SLOT(update()));
-  printVersionInformation();
+	// load data
+	vector<Vertex> verts;
+	if (loadData())
+	{
+		cout << "Data loaded successfully! Num verts = " << g_params.vertices().size() << endl;
+	}
 
-  // Set global information
-  glEnable(GL_CULL_FACE);
-  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	verts = g_params.vertices();
+	// compute the proper scale/bias matrix for the vertices to place them in BBox [-0.5->0.5]
+	//FLOATAABB3D aabb;
+	//aabb.vMin = FLOATVECTOR3(FLT_MAX, FLT_MAX, FLT_MAX);
+	//aabb.vMax = FLOATVECTOR3(-FLT_MAX, -FLT_MAX, -FLT_MAX);
+	//for (size_t i = 0; i < verts.size(); i++)
+	//{
+	//	aabb.vMin.x = MIN(aabb.vMin.x, verts[i].position().x());
+	//	aabb.vMin.y = MIN(aabb.vMin.y, verts[i].position().y());
+	//	aabb.vMin.z = MIN(aabb.vMin.z, verts[i].position().z());
+
+	//	aabb.vMax.x = MAX(aabb.vMax.x, verts[i].position().x());
+	//	aabb.vMax.y = MAX(aabb.vMax.y, verts[i].position().y());
+	//	aabb.vMax.z = MAX(aabb.vMax.z, verts[i].position().z());
+	//}
+	//FLOATVECTOR3 aabbSize = aabb.vMax - aabb.vMin;
+	//FLOATVECTOR3 invAAbbSize = FLOATVECTOR3(aabbSize.x == 0.f ? 0.f : 1.f / aabbSize.x, aabbSize.y == 0.f ? 0.f : 1.f / aabbSize.y, aabbSize.z == 0.f ? 0.f : 1.f / aabbSize.z);
+	//FLOATVECTOR3 aabbCtr = 0.5f * aabbSize + aabb.vMin;
+	//cout << "AABB of vertices = " << aabb.vMin << ";" << aabb.vMax << endl;
+	//cout << "AABB center = " << aabbCtr << endl;
+	//m_transform.setTranslation(QVector3D(-aabbCtr.x, -aabbCtr.y, -aabbCtr.z));
+
+	//m_transform.setScale(1.f*invAAbbSize.x, 1.f * invAAbbSize.y, 1.f * invAAbbSize.z);
+	// Initialize OpenGL Backend
+	initializeOpenGLFunctions();
+	connect(context(), SIGNAL(aboutToBeDestroyed()), this, SLOT(teardownGL()), Qt::DirectConnection);
+	connect(this, SIGNAL(frameSwapped()), this, SLOT(update()));
+	printVersionInformation();
+
+	// Set global information
+	glEnable(GL_CULL_FACE);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 #ifdef    GL_DEBUG
-  m_debugLogger = new QOpenGLDebugLogger(this);
-  if (m_debugLogger->initialize())
-  {
-    qDebug() << "GL_DEBUG Debug Logger" << m_debugLogger << "\n";
-    connect(m_debugLogger, SIGNAL(messageLogged(QOpenGLDebugMessage)), this, SLOT(messageLogged(QOpenGLDebugMessage)));
-    m_debugLogger->startLogging();
-  }
-  else
-  {
-    qDebug() << "GL_DEBUG Debug Logger (NONE)\n";
-  }
-  connect(m_profiler, SIGNAL(onFrameResult(FrameResult)), this, SLOT(onFrameResult(FrameResult)));
+	m_debugLogger = new QOpenGLDebugLogger(this);
+	if (m_debugLogger->initialize())
+	{
+		qDebug() << "GL_DEBUG Debug Logger" << m_debugLogger << "\n";
+		connect(m_debugLogger, SIGNAL(messageLogged(QOpenGLDebugMessage)), this, SLOT(messageLogged(QOpenGLDebugMessage)));
+		m_debugLogger->startLogging();
+	}
+	else
+	{
+		qDebug() << "GL_DEBUG Debug Logger (NONE)\n";
+	}
+	connect(m_profiler, SIGNAL(onFrameResult(FrameResult)), this, SLOT(onFrameResult(FrameResult)));
 #endif // GL_DEBUG
 
-  // Application-specific initialization
-  {
-    // Create Shader (Do not release until VAO is created)
-    //m_program = new OpenGLShaderProgram(this);
-    m_program = new QOpenGLShaderProgram(this);
-    m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/simple.vert");
-    m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/simple.frag");
-    m_program->link();
-    m_program->bind();
+	// Application-specific initialization
+	{
+		// Create Shader (Do not release until VAO is created)
+		//m_program = new OpenGLShaderProgram(this);
+		m_program = new QOpenGLShaderProgram(this);
+		m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/simple.vert");
+		m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/simple.frag");
+		m_program->link();
+		m_program->bind();
 
-    // Cache Uniform Locations
-    u_modelToWorld = m_program->uniformLocation("modelToWorld");
-    u_worldToCamera = m_program->uniformLocation("worldToCamera");
-    u_cameraToView = m_program->uniformLocation("cameraToView");
+		// Cache Uniform Locations
+		u_modelToWorld = m_program->uniformLocation("modelToWorld");
+		u_worldToCamera = m_program->uniformLocation("worldToCamera");
+		u_cameraToView = m_program->uniformLocation("cameraToView");
 
-    // Create Buffer (Do not release until VAO is created)
-    m_vertex.create();
-    m_vertex.bind();
-    m_vertex.setUsagePattern(QOpenGLBuffer::StaticDraw);
-    //m_vertex.allocate(&sg_vertexes, sizeof(sg_vertexes));
-    
-    m_vertex.allocate(&verts[0], verts.size() * sizeof(Vertex));
+		// Create Buffer (Do not release until VAO is created)
+		m_vertex.create();
+		m_vertex.bind();
+		m_vertex.setUsagePattern(QOpenGLBuffer::StaticDraw);
+		//m_vertex.allocate(&sg_vertexes, sizeof(sg_vertexes));
+		m_vertex.allocate(&verts[0], verts.size() * sizeof(Vertex));
 
-    // Create Vertex Array Object
-    m_object.create();
-    m_object.bind();
-    m_program->enableAttributeArray(0);
-    m_program->enableAttributeArray(1);
-    m_program->setAttributeBuffer(0, GL_FLOAT, Vertex::positionOffset(), Vertex::PositionTupleSize, Vertex::stride());
-    m_program->setAttributeBuffer(1, GL_FLOAT, Vertex::colorOffset(), Vertex::ColorTupleSize, Vertex::stride());
 
-    // Release (unbind) all
-    m_object.release();
-    m_vertex.release();
-    m_program->release();
-  }
+		// Create Vertex Array Object
+		m_object.create();
+		m_object.bind();
+		m_program->enableAttributeArray(0);
+		m_program->enableAttributeArray(1);
+		m_program->setAttributeBuffer(0, GL_FLOAT, Vertex::positionOffset(), Vertex::PositionTupleSize, Vertex::stride());
+		m_program->setAttributeBuffer(1, GL_FLOAT, Vertex::colorOffset(), Vertex::ColorTupleSize, Vertex::stride());
 
-  DebugDraw::initialize(this);
+		// Release (unbind) all
+		m_object.release();
+		m_vertex.release();
+		m_program->release();
+
+
+		m_vertexAddOn.create();
+		m_vertexAddOn.bind();
+		m_vertexAddOn.setUsagePattern(QOpenGLBuffer::StaticDraw);
+		m_vertexAddOn.allocate(&sg_vertexes, sizeof(sg_vertexes));
+		//m_vertexAddOn.allocate(&verts[0], verts.size() * sizeof(Vertex));
+		m_objectAddOn.release();
+		m_vertexAddOn.release();
+	}
+
+	DebugDraw::initialize(this);
 }
 
 void Window::resizeGL(int width, int height)
@@ -192,6 +223,7 @@ void Window::paintGL()
 
   // Clear
   PROFILER_SYNC_FRAME();
+  glClearColor(1, 1, 1, 1);
   glClear(GL_COLOR_BUFFER_BIT);
 
   // Render the scene
@@ -347,10 +379,10 @@ void Window::update()
   Input::update();
 
   // Camera Transformation
-  static const float transSpeed = 0.5f;
+  static const float transSpeed = 0.2f;
   if (curMousePos != prevMousePos)
   {
-	  if(Input::buttonPressed(Qt::LeftButton) && Input::keyPressed(Qt::Key_Control))
+	  if(Input::buttonPressed(Qt::RightButton))
 	  {
 		  QVector2D Pa(float(curMousePos.x()) / float(width()) * 2.0f - 1.0f, 
 			  float(curMousePos.y()) / float(height()) * 2.0f - 1.0f);
@@ -359,7 +391,9 @@ void Window::update()
 
 		  QVector2D Pab = Pa - Pb;
 		  Pab.setY(-Pab.y());
-		  m_camera.translate(Pab.x(), Pab.y(), 0.0f);
+		  QVector3D translation = m_camera.LocalUp * Pab.y();
+		  translation += m_camera.LocalRight * Pab.x();
+		  m_camera.translate(transSpeed * translation);
 	
 
 	  }
@@ -376,16 +410,14 @@ void Window::update()
 		  QVector3D va = get_arcball_vector(curPos.x(), curPos.y());
 		  QVector3D vb = get_arcball_vector(lastPos.x(), lastPos.y());
 
-		  float angle = acosf(MIN(1.0f, QVector3D::dotProduct(va, vb))) *180.0f / M_PI;
-		  QVector3D axis_in_camera_coord = QVector3D::crossProduct(va, vb);
-		  //QMatrix4x4 cam2obj = m_camera.toMatrix() * m_transform.toMatrix().inverted();
+		  float dotProd = QVector3D::dotProduct(vb, va);
+		  float angle = acosf(MIN(1.0f, dotProd)) *180.0f / M_PI;
+		  QVector3D axis_in_camera_coord = QVector3D::crossProduct(vb, va);
+		  //QMatrix4x4 cam2obj = m_camera.toMatrix().inverted() * m_transform.toMatrix();
 		  //QVector3D axis_in_obj_coord = cam2obj * axis_in_camera_coord;
-		  //   m_transform.rotate(angle, axis_in_obj_coord);
-		  m_camera.rotate(angle, axis_in_camera_coord);
+		     //m_transform.rotate(angle, axis_in_obj_coord);
+		  m_camera.rotate(QQuaternion(dotProd, axis_in_camera_coord));
 		  prevMousePos = curMousePos;
-
-		  //m_camera.rotate(-rotSpeed * Input::mouseDelta().x(), Camera3D::LocalUp);
-		  //m_camera.rotate(-rotSpeed * Input::mouseDelta().y(), m_camera.right());
 	  }
   }
 
@@ -394,34 +426,33 @@ void Window::update()
   if (Input::keyPressed(Qt::Key_R))
   {
 	  m_camera.reset();
-	  m_camera.translate(CAM_POS.x, CAM_POS.y, CAM_POS.z);
   }
   else
   {
 	  QVector3D translation;
 	  if (Input::keyPressed(Qt::Key_W))
 	  {
-		  translation += m_camera.forward();
+		  translation -= m_camera.LocalForward;//m_camera.forward();
 	  }
 	  if (Input::keyPressed(Qt::Key_S))
 	  {
-		  translation -= m_camera.forward();
+		  translation += m_camera.LocalForward; //m_camera.forward();
 	  }
 	  if (Input::keyPressed(Qt::Key_A))
 	  {
-		  translation -= m_camera.right();
+		  translation += m_camera.LocalRight; //m_camera.right();
 	  }
 	  if (Input::keyPressed(Qt::Key_D))
 	  {
-		  translation += m_camera.right();
+		  translation -= m_camera.LocalRight; //m_camera.right();
 	  }
 	  if (Input::keyPressed(Qt::Key_Q))
 	  {
-		  translation -= m_camera.up();
+		  translation -= m_camera.LocalUp; //m_camera.up();
 	  }
 	  if (Input::keyPressed(Qt::Key_E))
 	  {
-		  translation += m_camera.up();
+		  translation += m_camera.LocalUp; //m_camera.up();
 	  }
 	  m_camera.translate(transSpeed * translation);
 
@@ -559,14 +590,14 @@ void Window::mouseReleaseEvent(QMouseEvent *event)
 
 void Window::mouseMoveEvent(QMouseEvent * event)
 {
-    if (Input::buttonPressed(Qt::LeftButton))
+    if (Input::buttonPressed(Qt::LeftButton) || Input::buttonPressed(Qt::RightButton))
         curMousePos = event->pos();
 }
 
 void Window::wheelEvent(QWheelEvent * event)
 {
-    float fdelta = event->delta()/100.0f;
-    QVector3D translation = m_camera.forward() * fdelta;
+    float fdelta = event->delta()/1000.0f;
+	QVector3D translation = QVector3D(0, 0, fdelta);/*m_camera.forward() * fdelta*/;
 
     m_camera.translate(translation);
     update();

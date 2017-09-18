@@ -60,7 +60,11 @@ protected:
 private:
   // OpenGL State Information
   OpenGLBuffer m_vertex;
+  OpenGLBuffer m_vertexAddOn;
+
+
   OpenGLVertexArrayObject m_object;
+  OpenGLVertexArrayObject m_objectAddOn;
   //OpenGLShaderProgram *m_program;
   QOpenGLShaderProgram *m_program;
   QOpenGLDebugLogger *m_debugLogger;

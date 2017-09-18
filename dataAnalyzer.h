@@ -2,7 +2,7 @@
 #include "KDtree.h"
 #include "spatialDataPt.h"
 #include "volume\VolumeData.h"
-#include "RegularGrid.h"
+//#include "RegularGrid.h"
 
 class octree;
 class EnsembleVolBlock;
@@ -14,7 +14,7 @@ public:
 	~DataAnalyzer();
 
 	void buildKDtree(const std::vector<FLOATVECTOR3>& mesh, KD<spatialDataPt*>& kdtree);
-	void buildRegGrid(const std::vector<FLOATVECTOR3>& mesh, RegularGrid<vector<UINT64>>& grid);
+	//void buildRegGrid(const std::vector<FLOATVECTOR3>& mesh, RegularGrid<vector<UINT64>>& grid);
 	// convert the ensemble volumes to a list of ensemble vol blocks
 	void buildEnsembleVolBlockList(const std::vector<VolumeData>& ensembleVols, std::vector<EnsembleVolBlock*>& ebList, UINT64VECTOR3& eblistDim);
 

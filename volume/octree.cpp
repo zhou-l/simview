@@ -78,7 +78,7 @@ void octree::writeContent(std::string & filename)
 {
 	ofstream ofOctree(filename.c_str());
 	ofOctree << "Ensemble octree content " << endl;
-	octreeWriteContent();
+	//octreeWriteContent();
 }
 
 void octree::octreeBuild(octreeNode* node)
