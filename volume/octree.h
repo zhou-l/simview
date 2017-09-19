@@ -21,8 +21,9 @@ public:
     bool build(int levels);
 	void fillInEnsembleData(std::vector<VolumeData*>& ensVols, int blockSize);
 	void analyzeEnsembleData(const std::vector<EnsembleVolBlock*>& ebList, const UINT64VECTOR3& ebListDim, VolBlockAnalyzer* analyzer);
-	void writeContent(std::string& filename);
-
+	
+	void beginOutputContent(std::string& filename);
+	void endOutputContent();
 protected:
 	// recursive functions
 	void octreeBuild(octreeNode* node);
@@ -31,11 +32,14 @@ protected:
 	void octreeAnalyzeEnsData(octreeNode* node, const std::vector<EnsembleVolBlock*>& ebList,
 		const UINT64VECTOR3& ebListDim, VolBlockAnalyzer* analyzer);
 	void octreeWriteContent(octreeNode* node, std::ofstream& file);
+protected:
+    octreeNode* _root;     // the root node
 
-    octreeNode* _root;
+	int      _tree_levels; // number of tree levels
+	OCT_TYPE _type;        // single data or ensembles?
 
-	int      _tree_levels;
-	OCT_TYPE _type;
+	bool     _isWrite; // shall we write out content?
+	ofstream _ofs; // file writer
 };
 
 

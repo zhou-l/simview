@@ -11,7 +11,8 @@ vector<EnsembleVolBlock*> ensVolBlocks;
 
 octree::octree(OCT_TYPE type) :
 	_type(type),
-	_root(NULL)
+	_root(NULL),
+	_isWrite(false)
 {
 
 }
@@ -74,11 +75,36 @@ void octree::analyzeEnsembleData(const std::vector<EnsembleVolBlock*>& ebList, c
 	cout << "done!" << endl;
 }
 
-void octree::writeContent(std::string & filename)
+void octree::beginOutputContent(std::string & filename)
 {
-	ofstream ofOctree(filename.c_str());
-	ofOctree << "Ensemble octree content " << endl;
+	_ofs.open(filename.c_str(), std::ios_base::out);
+	if (!_ofs.is_open())
+	{
+		cout << "Error opening file " << filename << " for writing!" << endl;
+		return;
+	}
+	switch(_type)
+	{
+	case OCT_ENSEMBLE:
+		_ofs << "Ensemble octree content = " << endl;
+		break;
+	case OCT_SINGLE:
+		_ofs << "Single octree content = " << endl;
+		break;
+	default:
+		_ofs << "Unknown type octree content = " << endl;
+		break;
+	}
+	_isWrite = true;
 	//octreeWriteContent();
+}
+
+void octree::endOutputContent()
+{
+	if (_ofs.is_open())
+		_ofs.close();
+	_isWrite = false;
+	cout << "Write out octree to file done!" << endl;
 }
 
 void octree::octreeBuild(octreeNode* node)
@@ -163,9 +189,16 @@ void octree::octreeAnalyzeEnsData(octreeNode * node, const std::vector<EnsembleV
 	if (node->_level == 0)
 	{
 		// compute the root node statistics
+		
 		analyzer->ensemble_inBlockAnalysis(reinterpret_cast<EnsembleVolBlock*>(node->_data), node->_statInfo);
 		analyzer->ensemble_neighborBlocksAnalysis(ebList, ebListDim,
 			node->_volStartPos, node->_statInfo);
+
+		if (_isWrite && _ofs.is_open())
+		{
+			_ofs << "Node level = " << node->_level << " start pos = " << node->_volStartPos << endl;
+			_ofs << node->_statInfo << endl;
+		}
 	}
 	else
 	{
@@ -173,6 +206,11 @@ void octree::octreeAnalyzeEnsData(octreeNode * node, const std::vector<EnsembleV
 		for (int i = 0; i < 8; i++)
 			childrenStats[i] = node->_children[i]->_statInfo;
 		analyzer->ensemble_propStats(childrenStats, node->_statInfo);
+		if (_isWrite && _ofs.is_open())
+		{
+			_ofs << "Node level = " << node->_level << " start pos = " << node->_volStartPos << endl;
+			_ofs << node->_statInfo << endl;
+		}
 	}
 }
 

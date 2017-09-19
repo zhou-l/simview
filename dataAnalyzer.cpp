@@ -217,8 +217,13 @@ void DataAnalyzer::createEnsembleOctree(std::vector<VolumeData*>& ensembleVols, 
 	// Fill in data
 	ensembleOctTree->fillInEnsembleData(ensembleVols, blkSize);
 
+	bool dumpNodeInfo = true;
+	if (dumpNodeInfo)
+		ensembleOctTree->beginOutputContent(std::string("ensembleOctree.txt"));
 	// Analyze the volume!
 	ensembleOctTree->analyzeEnsembleData(g_params.ensVolBlocks(), g_params.ensVolBlkListDim(), _volBlkAnalyzer);
+	if (dumpNodeInfo)
+		ensembleOctTree->endOutputContent();
 }
 
 //void DataAnalyzer::analyzeEnsembleNodes(std::vector<EnsembleVolBlock*> ensVolBlockList, const UINT64VECTOR3 & listDim)

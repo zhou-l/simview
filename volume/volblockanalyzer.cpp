@@ -1,11 +1,32 @@
 #include "volblockanalyzer.h"
 #include "scythe/scythestat/stat.h"
 #include <numeric>
+#include "VolumeData.h"
 
 using namespace std;
 using namespace scythe;
 VolBlockAnalyzer::VolBlockAnalyzer()
 {
+	// Test the analysis method
+	UINT64VECTOR3 volSize(4, 4, 4);
+	UINT64 numRuns = 2;
+	
+	vector<VolumeData*> testData(numRuns);
+	for (UINT64 r = 0; r < numRuns; r++) {
+
+		float* data = new float[volSize.volume()];
+		for (size_t i = 0; i < volSize.volume(); i++)
+			data[i] = float(i) * float(r+1);
+
+		VolumeData* vol = new VolumeData(volSize, 4, (void*)data, true, true);
+		testData[r] = vol;
+	}
+
+	EnsembleVolBlock e(testData, UINT64VECTOR3(0,0,0), volSize);
+	StatInfo stats;
+	cout << "Test stats: " << endl;
+	ensemble_inBlockAnalysis(&e, stats);
+	cout << endl;
 
 }
 
@@ -61,10 +82,11 @@ void VolBlockAnalyzer::ensemble_inBlockAnalysis(const EnsembleVolBlock* eb, Stat
         block_mu += r_mu; // is it true????
         block_var += r_var;
         block_min = MIN(r_min, block_min);
-        block_max = MIN(r_max, block_max);
+        block_max = MAX(r_max, block_max);
         // median has to be sorted
     }
-
+	block_mu /= float(dim.volume());
+	block_var /= float(dim.volume() - 1);
     scythe::Matrix<float> mat_eb(dim.volume() * runs, 1, ens_data);
     block_med = median(mat_eb);
 

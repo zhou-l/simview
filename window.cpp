@@ -285,7 +285,7 @@ bool Window::loadData()
 
     // Load run files
     cout << "Loading ensemble runs...";
-    QString runFileFolder = tr("C:/MyData/Utah_heart_ischema/201701_Conductivity/simRuns/dataset_1");
+    QString runFileFolder = tr("C:/MyData/Utah_heart_ischema/201701_Conductivity/simRuns/dataset_test");
     bool runFilesLoaded = m_dataLoader->loadEnsembleRunsTxt(runFileFolder);
     g_params.setEnsembleData(m_dataLoader->ensembleData());
     cout << "finished!" << endl;
