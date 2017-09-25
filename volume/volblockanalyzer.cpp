@@ -12,22 +12,43 @@ VolBlockAnalyzer::VolBlockAnalyzer()
 	UINT64 numRuns = 2;
 	
 	vector<VolumeData*> testData(numRuns);
+
+	vector<VolumeData*> testData2(numRuns);
 	for (UINT64 r = 0; r < numRuns; r++) {
 
 		float* data = new float[volSize.volume()];
-		for (size_t i = 0; i < volSize.volume(); i++)
-			data[i] = float(i) * float(r+1);
+		float* data2 = new float[volSize.volume()];
+		for (size_t i = 0; i < volSize.volume(); i++) {
+
+			data[i] = float(i) * float(r + 1);
+			data2[i] = float(volSize.volume() - 1 - i) * 0.4f * float(r + 1);
+		}
 
 		VolumeData* vol = new VolumeData(volSize, 4, (void*)data, true, true);
 		testData[r] = vol;
+		VolumeData* vol2 = new VolumeData(volSize, 4, (void*)data2, true, true);
+		testData2[r] = vol2;
 	}
-
+	// Get the inblock statistics
 	EnsembleVolBlock e(testData, UINT64VECTOR3(0,0,0), volSize);
-	StatInfo stats;
-	cout << "Test stats: " << endl;
-	ensemble_inBlockAnalysis(&e, stats);
-	cout << endl;
 
+	EnsembleVolBlock e2(testData2, UINT64VECTOR3(0,0,0), volSize);
+
+	StatInfo stats;
+	cout << "Test stats block 1: " << endl;
+	ensemble_inBlockAnalysis(&e, stats);
+	cout << stats;
+	StatInfo stats2;
+	cout << "Test stats block 2: " << endl;
+	ensemble_inBlockAnalysis(&e2, stats2);
+	cout << stats2;
+
+	// Between block analysis
+	cout << "Distance between blocks 1&2: " << endl;
+	vector<float> statDists = ensemble_betweenBlockAnalysis(&e, &e2);
+	for (size_t i = 0; i < statDists.size(); i++)
+		cout<<statDists[i]<<" ";
+	cout << endl;
 }
 
 float VolBlockAnalyzer::blockCorr(const VolumeBlock *b1, const VolumeBlock *b2)
