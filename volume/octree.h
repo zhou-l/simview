@@ -5,7 +5,7 @@
 #include <fstream>
 class VolBlockAnalyzer;
 class VolumeData;
-
+class MassSpringSystem;
 enum OCT_TYPE
 {
 	OCT_ENSEMBLE = 0,
@@ -18,10 +18,12 @@ public:
     octree(OCT_TYPE type);
 	~octree();
 
+	// top level functions
     bool build(int levels);
 	void fillInEnsembleData(std::vector<VolumeData*>& ensVols, int blockSize);
 	void analyzeEnsembleData(const std::vector<EnsembleVolBlock*>& ebList, const UINT64VECTOR3& ebListDim, VolBlockAnalyzer* analyzer);
-	
+	void setupMassSpringSys(MassSpringSystem** ppMassSpring);
+
 	void beginOutputContent(std::string& filename);
 	void endOutputContent();
 protected:
@@ -31,6 +33,8 @@ protected:
 	void octreeFillEnsembleData(octreeNode* node, std::vector<VolumeData*>& ensVols, int blockSize);
 	void octreeAnalyzeEnsData(octreeNode* node, const std::vector<EnsembleVolBlock*>& ebList,
 		const UINT64VECTOR3& ebListDim, VolBlockAnalyzer* analyzer);
+	void octreeSetMassSpringSys(octreeNode* node, MassSpringSystem** ppMassSpring);
+
 	void octreeWriteContent(octreeNode* node, std::ofstream& file);
 protected:
     octreeNode* _root;     // the root node

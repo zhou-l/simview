@@ -252,6 +252,7 @@
   <ItemGroup>
     <ClCompile Include="Boxplot.cpp" />
     <ClCompile Include="dataAnalyzer.cpp" />
+    <ClCompile Include="QGLGraphView.cpp" />
     <ClCompile Include="SysTools.cpp" />
     <ClCompile Include="volume\VolumeData.cpp" />
     <ClCompile Include="camera3d.cpp" />
@@ -292,6 +293,7 @@
     <ClInclude Include="OpenGL\OpenGLMarkerScoped" />
     <ClInclude Include="OpenGL\OpenGLShaderProgram" />
     <ClInclude Include="OpenGL\OpenGLVertexArrayObject" />
+    <ClInclude Include="QGLGraphView.h" />
     <ClInclude Include="RegularGrid.h" />
     <ClInclude Include="spatialDataPt.h" />
     <ClInclude Include="stat_info.h" />

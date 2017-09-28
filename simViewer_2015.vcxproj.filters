@@ -106,6 +106,9 @@
     <ClCompile Include="Boxplot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QGLGraphView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dataHandling\CSVRow.h">
@@ -319,6 +322,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="octreenode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QGLGraphView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

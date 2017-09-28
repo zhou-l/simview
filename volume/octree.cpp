@@ -2,6 +2,7 @@
 #include "VolumeData.h"
 #include "volumeblock.h"
 #include "volblockanalyzer.h"
+#include "graph\massspringsystem.h"
 #include <iostream>
 
 using namespace std;
@@ -72,6 +73,19 @@ void octree::analyzeEnsembleData(const std::vector<EnsembleVolBlock*>& ebList, c
 	}
 	cout << __FUNCTION__ << "...";
 	octreeAnalyzeEnsData(_root, ebList, ebListDim, analyzer);
+	cout << "done!" << endl;
+}
+
+void octree::setupMassSpringSys(MassSpringSystem** ppMassSpring)
+{
+	if (*ppMassSpring)
+	{
+		SAFE_DELETE(*ppMassSpring);
+	}
+	
+	*ppMassSpring = new MassSpringSystem();
+	cout << __FUNCTION__ << "...";
+	octreeSetMassSpringSys(_root, ppMassSpring);
 	cout << "done!" << endl;
 }
 
@@ -188,7 +202,7 @@ void octree::octreeAnalyzeEnsData(octreeNode * node, const std::vector<EnsembleV
 		octreeAnalyzeEnsData(node->_children[i], ebList, ebListDim, analyzer);
 	if (node->_level == 0)
 	{
-		// compute the root node statistics
+		// compute the leaf node statistics
 		
 		analyzer->ensemble_inBlockAnalysis(reinterpret_cast<EnsembleVolBlock*>(node->_data), node->_statInfo);
 		analyzer->ensemble_neighborBlocksAnalysis(ebList, ebListDim,
@@ -214,12 +228,32 @@ void octree::octreeAnalyzeEnsData(octreeNode * node, const std::vector<EnsembleV
 	}
 }
 
+void octree::octreeSetMassSpringSys(octreeNode * node, MassSpringSystem ** ppMassSpring)
+{
+	// For now, use leaf nodes only
+	if (node == NULL)
+		return;
+	for (int i = 0; i < 8; i++)
+	{
+		octreeSetMassSpringSys(node->_children[i], ppMassSpring);
+	}
+	// set leaf node
+	if (node->_level == 0)
+	{
+		FLOATVECTOR3 pos = node->_volStartPos;
+		float mass = node->_statInfo._mu; // use mean value as mass?
+		// A 3D graph???
+		(*ppMassSpring)->addMass(mass, pos.x, pos.y, pos.z);
+		(*ppMassSpring)->addSpring();
+	}
+}
+
 void octree::octreeWriteContent(octreeNode * node, std::ofstream & file)
 {
 	if (node == NULL)
 		return;
 	for (int i = 0; i < 8; i++)
-		octreeWriteContent(node, file);
+		octreeWriteContent(node->_children[i], file);
 	file << node->_level << ": " << node->_volStartPos << endl
 		<< node->_statInfo << endl;
 }
