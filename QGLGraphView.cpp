@@ -3,6 +3,8 @@
 #include "global.h"
 #include "volume\octree.h"
 
+using namespace std;
+
 QGLGraphView::QGLGraphView()
 {
 	_massSpring = new MassSpringSystem();
@@ -30,29 +32,27 @@ void QGLGraphView::initMassSpring()
 {
 	// get data from the octree
 	octree* oct_tree = g_params.ensembleOctree();
+	// get the dimension of leaf nodes
+	int levels = oct_tree->levels();
+	int width = 1<<levels;
+	int height = width;
+	int depth = width;
+
 	// Set leaf nodes as mass
 	// create grid of masses aligned to x-y plane
-	float x = 0.0;
-	float y = 0.0;
-	float z = 0.0;
-	float ystep = float(densitymap.rows) / float(_gridDimY);
-	float xstep = float(densitymap.cols) / float(_gridDimX);
-	cout << "Xstep = " << xstep << "; Ystep = " << ystep << endl;
-	vector<vector<PointMass*>> massGrid;
-
-	massGrid.resize(height);
-	for (int j = 0; j<height; j++) {
-		massGrid[j].resize(width);
-		x = 0;
-		for (int i = 0; i<width; i++) {
-			double gx = gradX.at<double>(cv::Point(i, j));
-			double gy = gradY.at<double>(cv::Point(i, j));
-			//massGrid[j][i] = _simSystem->addMass(massValue, /*i*/x, /*j*/y, z, Vector(gx, gy, 0));
-			massGrid[j][i] = _simSystem->addMass(massValue, i, j, z, Vector(gx, -gy, 0));
-			//massGrid[j][i] = _simSystem->addMass(massValue, i, j, z, Vector(log(gx + 1), log(gy + 1), 0));
+	_massGrid.resize(depth);
+	for (int k = 0; k < depth; k++)
+	{
+		_massGrid.resize(height);
+		for (int j = 0; j<height; j++) {
+			_massGrid[j].resize(width);
+			for (int i = 0; i<width; i++) {
+				_massGrid[j][i][k] = _massSpring->addMass(massValue, i, j, k, Vector(gx, -gy, 0));
+			}
 		}
-	}
 
+	}
+	
 	// Set fixed masses at the boundary
 	int pad = 2;
 	for (int i = 0; i<width; i++) {

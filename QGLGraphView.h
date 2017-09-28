@@ -1,6 +1,7 @@
 #pragma once
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
+#include <vector>
 
 class MassSpringSystem;
 class QGLGraphView : public QOpenGLWidget, public QOpenGLFunctions 
@@ -17,6 +18,6 @@ public:
 	void initMassSpring();
 private:
 	MassSpringSystem*          _massSpring;
-
+	std::vector<std::vector<std::vector< PointMass*> > > _massGrid;
 };
 

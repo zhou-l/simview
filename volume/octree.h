@@ -26,6 +26,9 @@ public:
 
 	void beginOutputContent(std::string& filename);
 	void endOutputContent();
+
+	int  levels() const { return _tree_levels; }
+
 protected:
 	// recursive functions
 	void octreeBuild(octreeNode* node);

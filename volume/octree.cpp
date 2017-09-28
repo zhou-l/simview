@@ -244,7 +244,7 @@ void octree::octreeSetMassSpringSys(octreeNode * node, MassSpringSystem ** ppMas
 		float mass = node->_statInfo._mu; // use mean value as mass?
 		// A 3D graph???
 		(*ppMassSpring)->addMass(mass, pos.x, pos.y, pos.z);
-		(*ppMassSpring)->addSpring();
+		//(*ppMassSpring)->addSpring();
 	}
 }
 
