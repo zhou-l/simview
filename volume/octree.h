@@ -3,6 +3,7 @@
 #include "MyVectors.h"
 #include "octreenode.h"
 #include <fstream>
+#include "Eigen/Core"
 class VolBlockAnalyzer;
 class VolumeData;
 class MassSpringSystem;
@@ -26,8 +27,12 @@ public:
 
 	void beginOutputContent(std::string& filename);
 	void endOutputContent();
+	// breadth first assignment of node info to a list of matrices
+	void bfsSetLevelNodesInfo(std::vector<Eigen::MatrixXf>& M);
 
 	int  levels() const { return _tree_levels; }
+	
+	friend UINT64 volPos2SID(FLOATVECTOR3 fVolPos, int level); // convert floating point 3D volume pos to uint64 serial id
 
 protected:
 	// recursive functions

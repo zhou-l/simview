@@ -4,6 +4,7 @@
 #include "volblockanalyzer.h"
 #include "graph\massspringsystem.h"
 #include <iostream>
+#include <deque>
 
 using namespace std;
 // helper functions
@@ -119,6 +120,39 @@ void octree::endOutputContent()
 		_ofs.close();
 	_isWrite = false;
 	cout << "Write out octree to file done!" << endl;
+}
+
+void octree::bfsSetLevelNodesInfo(std::vector<Eigen::MatrixXf>& M)
+{
+	std::deque<octreeNode*> nqueue;
+	nqueue.push_back(_root);
+
+	while (!nqueue.empty())
+	{
+		octreeNode* N = nqueue.front();
+		nqueue.pop_front();
+
+		// get level of N
+		int l = N->_level;
+		// get the adjacent matrix of that level
+		Eigen::MatrixXf lM = M.at(l);
+		// set corresponding element of lM
+		UINT64 csid = volPos2SID(N->_volStartPos, l);
+		// get neighbor info
+		for (int n = 0; n < g_params.ensStatNumNeighbors(); n++)
+		{
+			UINT64 nsid = volPos2SID(); // get neighbor sid
+			// set matrix item for connectivity value?
+
+			lM(csid, nsid) = val;
+		}
+		// push children to the queue
+		for (int i = 0; i < 8; i++) {
+			if (N->_children[i])
+				nqueue.push_back(N->_children[i]);
+		}
+	}
+
 }
 
 void octree::octreeBuild(octreeNode* node)
@@ -256,4 +290,12 @@ void octree::octreeWriteContent(octreeNode * node, std::ofstream & file)
 		octreeWriteContent(node->_children[i], file);
 	file << node->_level << ": " << node->_volStartPos << endl
 		<< node->_statInfo << endl;
+}
+
+UINT64 volPos2SID(FLOATVECTOR3 fVolPos, int level)
+{
+	UINT64 numNodesPerDim = UINT64(1 << level);
+	FLOATVECTOR3 volPos = float(numNodesPerDim - 1) * fVolPos;
+	UINT64 sid = UINT64((volPos.z * numNodesPerDim + volPos.y) * numNodesPerDim + volPos.x);
+	return sid;
 }
