@@ -109,6 +109,9 @@
     <ClCompile Include="QGLGraphView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QGLAdjMatrixView.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dataHandling\CSVRow.h">
@@ -326,6 +329,9 @@
     </ClInclude>
     <ClInclude Include="QGLGraphView.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QGLAdjMatrixView.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

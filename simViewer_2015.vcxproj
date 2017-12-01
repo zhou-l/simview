@@ -252,6 +252,7 @@
   <ItemGroup>
     <ClCompile Include="Boxplot.cpp" />
     <ClCompile Include="dataAnalyzer.cpp" />
+    <ClCompile Include="QGLAdjMatrixView.cpp" />
     <ClCompile Include="QGLGraphView.cpp" />
     <ClCompile Include="SysTools.cpp" />
     <ClCompile Include="volume\VolumeData.cpp" />
@@ -293,6 +294,7 @@
     <ClInclude Include="OpenGL\OpenGLMarkerScoped" />
     <ClInclude Include="OpenGL\OpenGLShaderProgram" />
     <ClInclude Include="OpenGL\OpenGLVertexArrayObject" />
+    <ClInclude Include="QGLAdjMatrixView.h" />
     <ClInclude Include="QGLGraphView.h" />
     <ClInclude Include="RegularGrid.h" />
     <ClInclude Include="spatialDataPt.h" />
